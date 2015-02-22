@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Speciality, CourseNumber, Subject
+from .models import Speciality, CourseNumber, Subject, PracticalWorkFile, PracticalWork,Lecture, LecturePart, Theory, Presentation, Video, CheckTest 
 
 class SpecialityOption(admin.ModelAdmin):
 	fieldset = (
@@ -24,6 +24,14 @@ class StackedItemInLine(admin.StackedInline):
 class TabularItemInLine(admin.TabularInline):
 	classes = ('grp-collapse grp-open',)
 
+class PracticaInLine(admin.StackedInline):
+	model = PracticalWorkFile
+	extra = 2
 
+class PracticaAdmin(admin.ModelAdmin):
+	fields = ['kind', 'number', 'title', 'subject']
+	inlines = [PracticaInLine]
+
+admin.site.register(PracticalWork, PracticaAdmin)
 admin.site.register(Subject)
 admin.site.register(Speciality, SpecialityOption)
