@@ -86,6 +86,10 @@ class Lecture(models.Model):
 	def __str__(self):
 		return self.name
 
+	class Meta:
+		verbose_name = 'Лекція'
+		verbose_name_plural = 'Лекції'
+
 class LecturePart(models.Model):
 	class Meta:
 		abstract = True	
@@ -96,11 +100,23 @@ class LecturePart(models.Model):
 class Theory(LecturePart):
 	document = models.FileField(upload_to='data/theory/', verbose_name='Файл')
 
+	class Meta:
+		verbose_name = 'Теорія'
+		verbose_name_plural = 'Теорії'
+
 class Presentation(LecturePart):	
 	document = models.FileField(upload_to='data/presentation/', verbose_name='Файл')
+
+	class Meta:
+		verbose_name = 'Презентація'
+		verbose_name_plural = 'Презентації'
+
 class Video(LecturePart):
 	document = models.FileField(upload_to='data/video/', verbose_name='Файл')
 
+	class Meta:
+		verbose_name = 'Відеофайл'
+		verbose_name_plural = 'Відеофайли'
 
 class CheckTest(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Тест')
