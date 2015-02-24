@@ -75,6 +75,9 @@ class PracticalWorkFile(models.Model):
 		verbose_name = 'Файл до роботи'
 		verbose_name_plural = 'Файли до робіт'
 
+	def __str__(self):
+		return str(self.pk)
+
 class Lecture(models.Model):
 	number = models.IntegerField(verbose_name='Номер')
 	name = models.CharField(max_length=255, verbose_name='Тема')

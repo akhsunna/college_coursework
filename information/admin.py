@@ -1,5 +1,7 @@
 from django.contrib import admin
+from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin 
 from .models import Speciality, CourseNumber, Subject, PracticalWorkFile, PracticalWork,Lecture, LecturePart, Theory, Presentation, Video, CheckTest 
+
 
 class SpecialityOption(admin.ModelAdmin):
 	fieldset = (
@@ -49,7 +51,9 @@ class LectureAdmin(admin.ModelAdmin):
 	fields = ['name', 'number', 'subject']
 	inlines = [TheoryInline, VideoInline, PresentationInline]
 
+
+
 admin.site.register(Lecture,LectureAdmin)
 admin.site.register(PracticalWork, PracticaAdmin)
-admin.site.register(Subject)
+admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Speciality, SpecialityOption)

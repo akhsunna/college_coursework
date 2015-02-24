@@ -30,17 +30,19 @@ TEMPLATE_DIRS = (
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_URL = '/media/'
 
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'grappelli',
     'information',
 )
 
@@ -96,3 +98,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.contrib.auth.context_processors.auth",
 )
+
+GRAPPELLI_ADMIN_TITLE = 'Test'
