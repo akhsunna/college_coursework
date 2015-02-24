@@ -107,6 +107,9 @@ class Theory(LecturePart):
 		verbose_name = 'Теорія'
 		verbose_name_plural = 'Теорії'
 
+	def __str__(self):
+		return self.title
+
 class Presentation(LecturePart):	
 	document = models.FileField(upload_to='data/presentation/', verbose_name='Файл')
 
@@ -114,12 +117,18 @@ class Presentation(LecturePart):
 		verbose_name = 'Презентація'
 		verbose_name_plural = 'Презентації'
 
+	def __str__(self):
+		return self.title
+
 class Video(LecturePart):
 	document = models.FileField(upload_to='data/video/', verbose_name='Файл')
 
 	class Meta:
 		verbose_name = 'Відеофайл'
 		verbose_name_plural = 'Відеофайли'
+
+	def __str__(self):
+		return self.title
 
 class CheckTest(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Тест')

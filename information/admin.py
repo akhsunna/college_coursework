@@ -1,5 +1,4 @@
 from django.contrib import admin
-from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin 
 from .models import Speciality, CourseNumber, Subject, PracticalWorkFile, PracticalWork,Lecture, LecturePart, Theory, Presentation, Video, CheckTest 
 
 
@@ -51,9 +50,10 @@ class LectureAdmin(admin.ModelAdmin):
 	fields = ['name', 'number', 'subject']
 	inlines = [TheoryInline, VideoInline, PresentationInline]
 
+class SubjectAdmin(admin.ModelAdmin):
+	pass
 
-
-admin.site.register(Lecture,LectureAdmin)
+admin.site.register(Lecture, LectureAdmin)
 admin.site.register(PracticalWork, PracticaAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Speciality, SpecialityOption)

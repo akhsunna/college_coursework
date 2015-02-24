@@ -36,14 +36,15 @@ MEDIA_URL = '/media/'
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'grappelli',
     'information',
+    'teacher',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,4 +100,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
 )
 
-GRAPPELLI_ADMIN_TITLE = 'Test'
+GRAPPELLI_ADMIN_TITLE = 'Адмінка сайта'
