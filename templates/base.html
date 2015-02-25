@@ -13,10 +13,14 @@
 <body style="background-image: url({% static "images/intro-bg.jpg" %})">
     <div id="sidebar">
         {% block sidebar %}
-            <a href="" class="item">TECHING MATERIALS</a>
-            <br>
-            <a href="#" class="choice-variant btn btn-outlined btn-theme">Увійти як вчитель</a>
-        {% endblock %}
+        {% block startpage %}{% endblock startpage %} 
+            {% if user.is_authenticated %}
+                    <a href="{% url 'create_subject' %}" class="choice-variant btn btn-outlined btn-theme">Перейти на сторінку адміна</a>
+                    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+            {% else %}           
+                    <a href="{% url 'teacher_login' %}" class="choice-variant btn btn-outlined btn-theme">Увійти як вчитель</a>
+            {% endif %}
+         {% endblock %}
     </div>
 
     <div id="content">

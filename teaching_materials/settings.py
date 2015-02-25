@@ -62,7 +62,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'teaching_materials.urls'
-
 WSGI_APPLICATION = 'teaching_materials.wsgi.application'
 
 
@@ -71,10 +70,10 @@ WSGI_APPLICATION = 'teaching_materials.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'teaching_materials',
         'USER': 'root',
-        'PASSWORD': '1111',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -97,15 +96,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    'static', os.path.join(BASE_DIR, 'static') 
-    )
+try:
+    from local_settings import * 
+except ImportError:
+    pass
+
+STATIC_URL = '/static/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.contrib.auth.context_processors.auth",
+    "django.contrib.messages.context_processors.messages",
 )
 
 GRAPPELLI_ADMIN_TITLE = 'Admin'

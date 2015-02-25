@@ -1,4 +1,5 @@
 ﻿from django.db import models
+from django.contrib.auth.models import User
 
 class CourseNumber(models.Model):
 	FIRST_COURSE = 1
@@ -32,6 +33,7 @@ class Subject(models.Model):
 	year = models.ForeignKey(CourseNumber, verbose_name="Курс")
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)
+	author = models.ForeignKey(User, null=True, blank=True)
 
 	class Meta:
 		verbose_name = 'Предмет'
