@@ -20,6 +20,12 @@ def subject_list(request, speciality_id, course_id):
 	subjects = Subject.objects.filter(specialty=speciality_id,year=course_id)
 	return render(request,'subjects.html',{'subjects':subjects})
 
+
+@login_required
+def teacher_subject_list(request, author_id):
+	subjects = Subject.objects.filter(author=author_id)
+	return render(request, 'teacher_admin.html', {'subjects': subjects})
+
 @login_required
 def create_subject(request):
 	if request.method == 'POST':
@@ -27,13 +33,13 @@ def create_subject(request):
 		if form.is_valid():
 			cleand = form.cleaned_data
 			new_subject = Subject(
-				name=cleand['name'],
-				specialty=cleand['specialty'],
-				year=cleand['year'],
-				author=request.user
-			)
+					name=cleand['name'],
+					specialty=cleand['specialty'],
+					year=cleand['year'],
+					author=request.user
+				)
 			new_subject.save()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 	else:
 		form = CreateSubjectForm()
 	return render(request, 'create_subject.html', {'form': form})

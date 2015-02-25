@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block startpage %}
+	<a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
+{% endblock startpage %}
+	
+{% block content %}
+
+<div class="choice-block">
+	<center>
+		<div class="choice-title">
+			<div class="ch-title">
+				Предмети
+			</div>
+			<div class="ch-title">
+				<form class="form-container" method="post" action="{% url 'create_subject' %}"> {% csrf_token %}
+					<input class="btn-success" type="submit" value="Добавити новий предмет"/>
+					<input type="hidden" name="next" value="{{ next|escape }}"/>
+				</form>
+			</div>
+		</div>		
+		<div class="choice-various">
+			{% for subject in subjects %}
+				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s">
+					{{ subject.name }}					
+				</a>
+				<input class="btn-danger" type="submit" value="Видалити"/>
+				<input type="hidden" name="next" value="{{ next|escape }}"/>
+                <br>
+			{% endfor %}			
+		</div>		
+	</center>
+</div>
+
+{% endblock %}
