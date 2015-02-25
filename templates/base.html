@@ -10,7 +10,8 @@
     <title>{% block title %}TEACHING MATERIALS{% endblock %}</title>
 </head>
 
-<body style="background-image: url({% static "images/intro-bg.jpg" %})">
+<body>
+    <div class="von"> <img src="{% static "images/intro-bg.jpg" %}"></div>
     <div id="sidebar">
         {% block sidebar %}
             <a href="" class="item">TECHING MATERIALS</a>
@@ -18,10 +19,8 @@
             <a href="#" class="choice-variant btn btn-outlined btn-theme">Увійти як вчитель</a>
         {% endblock %}
     </div>
-
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-
 </body>
 </html>

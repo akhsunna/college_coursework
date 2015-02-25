@@ -1,3 +1,57 @@
+.von {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -2;
+}
+
+#sidebar {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+#sidebar .btn {
+    vertical-align: middle;
+    padding: 6px 20px;
+
+    border: 1px solid transparent;
+    border: 2px solid;
+    letter-spacing: 1px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+    margin: 10px auto auto 25px;
+    cursor: pointer; 
+}
+
+#sidebar .btn-outlined {
+    border-radius: 0;
+    -webkit-transition: all 0.3s;
+       -moz-transition: all 0.3s;
+            transition: all 0.3s;
+}
+
+#sidebar .btn-outlined.btn-theme {
+    color: #aaaaaa;
+    border-color: #aaaaaa;
+}
+
+#sidebar .btn-outlined.btn-theme:hover,
+#sidebar .btn-outlined.btn-theme:active {
+    color: #ff0000;
+    border-color: #ff0000;
+}
+
+
+
+
+
+
 div.header {
 	background: black;
 	left: 0px;
@@ -181,41 +235,3 @@ div.subject-block {
 
 
 
-
-
-
-
-#sidebar .btn {
-    vertical-align: middle;
-    padding: 6px 20px;
-
-    border: 1px solid transparent;
-    border: 2px solid;
-    letter-spacing: 1px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
-    white-space: nowrap;
-    display: inline-block;
-    margin: 10px auto auto 25px;
-    cursor: pointer; 
-}
-
-#sidebar .btn-outlined {
-    border-radius: 0;
-    -webkit-transition: all 0.3s;
-       -moz-transition: all 0.3s;
-            transition: all 0.3s;
-}
-
-#sidebar .btn-outlined.btn-theme {
-    color: #aaaaaa;
-    border-color: #aaaaaa;
-}
-
-#sidebar .btn-outlined.btn-theme:hover,
-#sidebar .btn-outlined.btn-theme:active {
-    color: #ff0000;
-    border-color: #ff0000;
-}
