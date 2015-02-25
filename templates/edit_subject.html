@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    Hello
+{% endblock title %}
+{% block startpage %}
+    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
+{% endblock startpage %}
+{% block content %}
+	<div class="choice-block">
+        <div class="ch-title">
+			<form action="" method="post" class="form-container" id="form">{% csrf_token %}
+				<div class="form-title">Назва предмету</div>
+					{{ form.name }}
+					{{ form.name.errors }}
+				<div class="form-title">Вибір спеціальності</div>
+					{{ form.specialty }}
+					{{ form.specialty.errors }}
+				<div class="form-title">Вибір курсу</div>
+					{{ form.year }}
+					{{ form.year.errors }}
+				<div class="submit-container">
+	                <input class="btn-danger" type="submit" value="Видалити предмет"/>
+	                <input type="hidden" name="next" value="{{ next|escape }}"/>
+	            </div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

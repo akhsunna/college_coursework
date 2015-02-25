@@ -20,11 +20,10 @@
 		</div>		
 		<div class="choice-various">
 			{% for subject in subjects %}
-				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s">
+				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
 					{{ subject.name }}					
 				</a>
-				<input class="btn-danger" type="submit" value="Видалити"/>
-				<input type="hidden" name="next" value="{{ next|escape }}"/>
+
                 <br>
 			{% endfor %}			
 		</div>		

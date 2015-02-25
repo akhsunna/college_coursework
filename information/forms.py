@@ -6,3 +6,4 @@ class CreateSubjectForm(ModelForm):
 	class Meta:
 		model = Subject
 		fields = ['name', 'specialty','year']
+
