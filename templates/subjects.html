@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="choice-block">
+	<center>
+		<div class="choice-title">
+			<div class="ch-title">
+				Предмети
+			</div>
+		</div>		
+		<div class="choice-various">
+			{% for subject in subjects %}
+				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s">
+					{{ subject.name }}					
+				</a>
+			{% endfor %}			
+		</div>		
+	</center>
+</div>
+
+{% endblock %}
