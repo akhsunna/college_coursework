@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="sub-block">
+	<center>
+		<div class="subj-title">
+			<div class="sub-title">
+				{{ subject.name }}
+			</div>
+		</div>
+		{% load staticfiles %}
+		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">		
+				{% for lecture in lectures %}
+					Лекція номер {{ lecture.number }}: {{ lecture.name }} <br>
+				{% endfor %}
+
+				{% for pr in prs %}
+					Практична робота {{ pr.number }}: {{ pr.title }} <br>
+				{% endfor %}
+
+				{% for lr in prs %}
+					Лабораторна робота {{ lr.number }}: {{ lr.title }} <br>
+				{% endfor %}
+		</div>		
+	</center>
+</div>
+
+{% endblock %}

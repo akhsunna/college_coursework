@@ -162,13 +162,22 @@ div.subjects-list {
     border-color: #2a9b1b;
 }
 
-/*div.fordark {
-    top: 0px;
-    left: 0px;
-    width: 100px;
-    height: 100px;
-    background: black;
-}*/
+
+
+
+
+
+div.subject-block {
+    padding: 20px 10px 20px 10px;
+    font-size: 24px;
+/*    background: black;  
+    opacity: 0.8;*/
+}
+
+
+
+
+
 
 
 

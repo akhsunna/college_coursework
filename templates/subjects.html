@@ -12,7 +12,7 @@
 		{% load staticfiles %}
 		<div style="background-image: url({% static "images/dark.png" %})" class="subjects-list">		
 			{% for subject in subjects %}
-				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s" class="choice-variant btn btn-outlined btn-theme">
+				<a href="/{{ speciality_id }}/{{ course_id }}/{{ subject.id }}/" style="text-decoration:none;" data-wow-delay="0.7s" class="choice-variant btn btn-outlined btn-theme">
 					<div style="float:left;">{{ subject.name }}</div>
 					<div style="color:gray;float:right;"> Студницька Л.М</div>		
 				</a>
