@@ -9,21 +9,55 @@
 				{{ subject.name }}
 			</div>
 		</div>
-		{% load staticfiles %}
-		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">		
-				{% for lecture in lectures %}
-					Лекція номер {{ lecture.number }}: {{ lecture.name }} <br>
-				{% endfor %}
-
-				{% for pr in prs %}
-					Практична робота {{ pr.number }}: {{ pr.title }} <br>
-				{% endfor %}
-
-				{% for lr in prs %}
-					Лабораторна робота {{ lr.number }}: {{ lr.title }} <br>
-				{% endfor %}
-		</div>		
 	</center>
+		{% load staticfiles %}
+		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">	
+
+		<ul>
+			<li>Лекції
+				<ul>
+					{% for lecture in lectures %}
+						<li> Лекція номер {{ lecture.number }}: {{ lecture.name }} </li>
+						<ul>
+							{% if lecture.theory %}
+								<li>Теорія</li>
+							{% endif %}
+							{% if lecture.presentation %}
+								<li>Презентація</li>
+							{% endif %}
+							{% if lecture.video %}
+								<li>Відео</li>
+							{% endif %}
+						</ul>
+					{% endfor %}
+					
+				</ul>
+			</li>	
+			<li>Практичні
+				<ul>
+					{% for pr in prs %}
+						<li>Практична робота {{ pr.number }}: {{ pr.title }} </li>
+						<ul>
+							<li>Переглядати</li>
+							<li>Завантажити</li>
+						</ul>
+					{% endfor %}					
+				</ul>
+			</li>	
+			<li>Лабораторні
+				<ul>
+					{% for lr in prs %}
+						<li>Лабораторна робота {{ lr.number }}: {{ lr.title }} </li>
+						<ul>
+							<li>Переглядати</li>
+							<li>Завантажити</li>
+						</ul>
+					{% endfor %}
+				</ul>
+			</li>	
+		</ul>
+
+		</div>	
 </div>
 
 {% endblock %}
