@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block content %}
+	<form class="form-container" action="" method="post">{% csrf_token %}
+	<div class="form-title"><h2>Вхід на сайт</h2></div>
+        <div class="form-title">Нікнейм</div>
+        <input class="form-field" type="text" name="username"/><br/>
+        {{ form.username.errors }}
+
+        <div class="form-title">Пароль</div>
+        <input class="form-field" type="password" name="password"/><br/>
+        {{ form.password.errors }}
+
+        <div class="submit-container">
+            <input class="submit-button" type="submit" value="Submit"/>
+            <input type="hidden" name="next" value="{{ next|escape }}"/>
+        </div>
+        <div class="form-title">{{ login_error }}</div>
+	</form>
+{% endblock content %}
