@@ -34,6 +34,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_URL = '/media/'
 
 # Application definition
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'information',
+    'teacher',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,3 +103,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.contrib.auth.context_processors.auth",
 )
+
+GRAPPELLI_ADMIN_TITLE = 'Admin'

@@ -1,6 +1,5 @@
 ﻿from django.db import models
 
-# Create your models here.
 class CourseNumber(models.Model):
 	FIRST_COURSE = 1
 	SECOND_COURSE = 2
@@ -41,10 +40,6 @@ class Subject(models.Model):
 	def __str__(self):
 		return self.name
 
-#PEP8
-#для классов - CamelCase
-#для переменных, методов, функция - method_name 
-
 class PracticalWork(models.Model):
 	PR = 1
 	LR = 2
@@ -59,14 +54,24 @@ class PracticalWork(models.Model):
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)	
 
+	class Meta:
+		verbose_name = 'Практично-лабораторна робота'
+		verbose_name_plural = 'Практично-лабораторні роботи'
+
 	def __str__(self):
-		return self.name	
+		return '%s робота %i : на тему : %s' % (self.get_kind_display(), self.number, self.title)
 
 
 class PracticalWorkFile(models.Model):
-	practical_work = models.ForeignKey(PracticalWork, verbose_name='Тема')
-	document = models.FileField(upload_to='ads/', verbose_name='Файл')
+	practical_work = models.ForeignKey(PracticalWork, verbose_name='')
+	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл')
 
+	class Meta:
+		verbose_name = 'Файл до роботи'
+		verbose_name_plural = 'Файли до робіт'
+
+	def __str__(self):
+		return str(self.pk)
 
 class Lecture(models.Model):
 	number = models.IntegerField(verbose_name='Номер')
@@ -79,24 +84,48 @@ class Lecture(models.Model):
 	def __str__(self):
 		return self.name
 
+	class Meta:
+		verbose_name = 'Лекція'
+		verbose_name_plural = 'Лекції'
+
 class LecturePart(models.Model):
 	class Meta:
 		abstract = True	
-	document = models.FileField(upload_to='insdfs/', verbose_name='Файл')
+	title = models.TextField(verbose_name='Тема')
 	lecture = models.OneToOneField(Lecture, verbose_name="Лекція")	
 
 
 class Theory(LecturePart):
-	title = models.TextField(verbose_name='Тема')
+	document = models.FileField(upload_to='data/theory/', verbose_name='Файл')
 
-class Presentation(LecturePart):
-	title = models.TextField(verbose_name='Тема')
+	class Meta:
+		verbose_name = 'Теорія'
+		verbose_name_plural = 'Теорії'
+
+	def __str__(self):
+		return self.title
+
+class Presentation(LecturePart):	
+	document = models.FileField(upload_to='data/presentation/', verbose_name='Файл')
+
+	class Meta:
+		verbose_name = 'Презентація'
+		verbose_name_plural = 'Презентації'
+
+	def __str__(self):
+		return self.title
 
 class Video(LecturePart):
-	title = models.TextField(verbose_name='Тема')
+	document = models.FileField(upload_to='data/video/', verbose_name='Файл')
 
+	class Meta:
+		verbose_name = 'Відеофайл'
+		verbose_name_plural = 'Відеофайли'
+
+	def __str__(self):
+		return self.title
 
 class CheckTest(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Тест')
-	doc_name = models.CharField(max_length=30, blank=True, verbose_name='Файл')
+	doc_name = models.CharField(max_length=255, blank=True, verbose_name='Файл')
 	subject = models.ForeignKey(Subject, verbose_name='Предмет')
