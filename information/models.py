@@ -1,6 +1,5 @@
 ﻿from django.db import models
 
-# Create your models here.
 class CourseNumber(models.Model):
 	FIRST_COURSE = 1
 	SECOND_COURSE = 2
@@ -40,10 +39,6 @@ class Subject(models.Model):
 
 	def __str__(self):
 		return self.name
-
-#PEP8
-#для классов - CamelCase
-#для переменных, методов, функция - method_name 
 
 class PracticalWork(models.Model):
 	PR = 1
