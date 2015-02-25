@@ -2,19 +2,24 @@
 
 {% block content %}
 
-<div class="choice-block">
+<div class="sub-block">
 	<center>
-		<div class="choice-title">
-			<div class="ch-title">
+		<div class="subj-title">
+			<div class="sub-title">
 				Предмети
 			</div>
-		</div>		
-		<div class="choice-various">
+		</div>
+		{% load staticfiles %}
+		<div style="background-image: url({% static "images/dark.png" %})" class="subjects-list">		
 			{% for subject in subjects %}
-				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s">
-					{{ subject.name }}					
+				<a href="#" style="text-decoration:none;" data-wow-delay="0.7s" class="choice-variant btn btn-outlined btn-theme">
+					<div style="float:left;">{{ subject.name }}</div>
+					<div style="color:gray;float:right;"> Студницька Л.М</div>		
 				</a>
-			{% endfor %}			
+			{% endfor %}	
+			{% if not subjects %}	
+				НЕМАЄ
+			{% endif %}	
 		</div>		
 	</center>
 </div>
