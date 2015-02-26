@@ -10,13 +10,11 @@
     <title>{% block title %}TEACHING MATERIALS{% endblock %}</title>
 </head>
 
-<body>
-    <div class="von"> <img src="{% static "images/intro-bg.jpg" %}"></div>
+<body style="background-image:url({% static "images/intro-bg.jpg" %})">
     <div id="sidebar">
         {% block sidebar %}
-            <a href="" class="item">TECHING MATERIALS</a>
-            <br>
-            <a href="#" class="choice-variant btn btn-outlined btn-theme">Увійти як вчитель</a>
+            <a href="" class="item" style="float:left;">TECHING MATERIALS</a>
+            <a href="#" class="choice-variant btn btn-outlined btn-theme menubtn" style="float:right;">Увійти як вчитель</a>
         {% endblock %}
     </div>
     <div id="content">

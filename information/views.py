@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from information.models import Speciality, CourseNumber, Subject, Lecture, PracticalWork
+from information.models import Speciality, CourseNumber, Subject, Lecture, PracticalWork, Video, Theory
 
 def speciality_list(request):
 	specialities = Speciality.objects.all()
@@ -21,3 +21,18 @@ def subject_show(request, speciality_id, course_id, subject_id):
 	lrs = PracticalWork.objects.filter(subject=subject_id,kind=2)
 	return render(request,'subject.html',{'subject':subject,'lectures':lectures,'prs':prs,'lrs':lrs})
 
+def video_show(request,speciality_id,course_id,subject_id,video_id):
+	video = Video.objects.get(id=video_id)
+	return render(request,'videoplay.html',{'video':video})
+
+def theory_show(request,speciality_id,course_id,subject_id,theory_id):
+	t = Theory.objects.get(id=theory_id)
+	doc = t.document
+	title = t.title;
+	return render(request,'pdf.html',{'doc':doc,'title':title})
+
+def pr_show(request,speciality_id,course_id,subject_id,pr_id):
+	pr = PracticalWork.objects.get(id=pr_id)
+	doc = t.document
+	title = t.title;
+	return render(request,'pdf.html',{'doc':doc,'title':title})

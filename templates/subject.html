@@ -20,13 +20,13 @@
 						<li> Лекція номер {{ lecture.number }}: {{ lecture.name }} </li>
 						<ul>
 							{% if lecture.theory %}
-								<li>Теорія</li>
+								<li><a href="/1/1/2/theory/{{lecture.theory.id}}/" style="text-decoration:none;">Теорія</a></li>
 							{% endif %}
 							{% if lecture.presentation %}
 								<li>Презентація</li>
 							{% endif %}
 							{% if lecture.video %}
-								<li>Відео</li>
+								<li><a href="/1/1/2/video/{{lecture.video.id}}/" style="text-decoration:none;">Відео</a></li>
 							{% endif %}
 						</ul>
 					{% endfor %}

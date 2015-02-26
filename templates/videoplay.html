@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<div class="video-block">
+	<video name='demo' controls autoplay class="video">
+		<source src="{% static video.document %}" type="video/mp4"></source>
+	</video>
+	<div class="video-title">
+		<div class="">
+			{{ video.title }}
+		</div>
+	</div>	
+</div>
+<!-- {{ video.document.path }} -->
+
+{% endblock %}
+
+
+
+

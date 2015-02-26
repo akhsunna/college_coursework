@@ -1,15 +1,18 @@
-.von {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    z-index: -2;
+body {
+    background: no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
 }
 
 #sidebar {
     position: fixed;
     left: 0px;
     top: 0px;
-    z-index: -1;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
 }
 
 #sidebar .btn {
@@ -25,7 +28,7 @@
     text-align: center;
     white-space: nowrap;
     display: inline-block;
-    margin: 10px auto auto 25px;
+    margin: 0px auto auto 25px;
     cursor: pointer; 
 }
 
@@ -224,14 +227,60 @@ div.subjects-list {
 div.subject-block {
     padding: 20px 10px 20px 10px;
     font-size: 24px;
-/*    background: black;  
-    opacity: 0.8;*/
 }
 
 
 
 
+div.video-block {
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    top: 50px;
+    width: 65%;    
+    max-width: 1000px;
+}
 
+video.video {
+    position: relative;
+    left: -50%;
+    width: 100%;
+}
 
+div.video-title {
+    position: relative;
+    left: -50%;
+    width: 100%;
+    font: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    color: #888888;
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+div.pdf-block {
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    top: 0px;
+    max-width: 850px;
+}
+
+object.pdf {
+    position: relative;
+    left: -50%;
+    height: 100%;
+    width: 850px;
+}
+
+div.pdf-title {
+    position: relative;
+    left: -50%;
+    width: 100%;
+    font: normal normal normal 21px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    color: #EEEEEE;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
 
 

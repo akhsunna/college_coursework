@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load staticfiles %}
+<div class="pdf-block">
+	<center>		
+		<div class="pdf-title" style="background-image: url({% static "images/dark.png" %})">
+			<div class="">
+				{{ title }}
+			</div>
+		</div>
+	</center>
+	<object type="application/pdf" class="pdf" data="{% static doc %}?#zoom=85&scrollbar=0&toolbar=0&navpanes=0">
+	    <p>Помилка.</p>
+	</object>
+</div>
+
+{% endblock %}
