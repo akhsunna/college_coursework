@@ -3,7 +3,11 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;    
+    background-size: cover;  
+}
+
+a {
+    color: #028dff;
 }
 
 #sidebar {
@@ -12,17 +16,26 @@ body {
     top: 0px;
     width: 100%;
     z-index: 1000;
+    padding: 10px 15px;
+}
+
+#sidebar-bottom {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 1000;
     padding: 10px 20px;
 }
 
-#sidebar .btn {
+#sidebar-bottom .btn {
     vertical-align: middle;
     padding: 6px 20px;
 
     border: 1px solid transparent;
     border: 2px solid;
     letter-spacing: 1px;
-    font-size: 10px;
+    font: normal normal normal 10px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
@@ -32,22 +45,22 @@ body {
     cursor: pointer; 
 }
 
-#sidebar .btn-outlined {
+#sidebar-bottom .btn-outlined {
     border-radius: 0;
     -webkit-transition: all 0.3s;
        -moz-transition: all 0.3s;
             transition: all 0.3s;
 }
 
-#sidebar .btn-outlined.btn-theme {
+#sidebar-bottom .btn-outlined.btn-theme {
     color: #aaaaaa;
     border-color: #aaaaaa;
 }
 
-#sidebar .btn-outlined.btn-theme:hover,
-#sidebar .btn-outlined.btn-theme:active {
-    color: #ff0000;
-    border-color: #ff0000;
+#sidebar-bottom .btn-outlined.btn-theme:hover,
+#sidebar-bottom .btn-outlined.btn-theme:active {
+    color: #FF0000;
+    border-color: #FF0000;
 }
 
 
@@ -143,9 +156,8 @@ div.choice-various {
 
 .choice-various .btn-outlined.btn-theme:hover,
 .choice-various .btn-outlined.btn-theme:active {
-    color: #2a9b1b;
-/*    background: #eeff3d;*/
-    border-color: #2a9b1b;
+    color: #028dff;
+    border-color: #028dff;
 }
 
 
@@ -214,9 +226,8 @@ div.subjects-list {
 
 .subjects-list .btn-outlined.btn-theme:hover,
 .subjects-list .btn-outlined.btn-theme:active {
-    color: #2a9b1b;
-/*    background: #eeff3d;*/
-    border-color: #2a9b1b;
+    color: #028dff;
+    border-color: #028dff;
 }
 
 
@@ -236,8 +247,8 @@ div.video-block {
     position: fixed;
     left: 50%;
     bottom: 0px;
-    top: 50px;
-    width: 65%;    
+    top: 15%;
+    width: 60%;    
     max-width: 1000px;
 }
 

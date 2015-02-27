@@ -2,12 +2,13 @@
 from django.contrib import admin
 from django.conf import settings
 
+# from django.conf.urls.static import static
 
 urlpatterns = patterns('',
-	url('^', include('information.urls')),
+	url(r'^', include('information.urls')),
     url(r'grappelli', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-) 
+)
 
 if settings.DEBUG:
 	urlpatterns += patterns('',

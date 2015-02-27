@@ -14,47 +14,54 @@
 		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">	
 
 		<ul>
-			<li>Лекції
-				<ul>
-					{% for lecture in lectures %}
-						<li> Лекція номер {{ lecture.number }}: {{ lecture.name }} </li>
-						<ul>
-							{% if lecture.theory %}
-								<li><a href="/1/1/2/theory/{{lecture.theory.id}}/" style="text-decoration:none;">Теорія</a></li>
-							{% endif %}
-							{% if lecture.presentation %}
-								<li>Презентація</li>
-							{% endif %}
-							{% if lecture.video %}
-								<li><a href="/1/1/2/video/{{lecture.video.id}}/" style="text-decoration:none;">Відео</a></li>
-							{% endif %}
-						</ul>
-					{% endfor %}
-					
-				</ul>
-			</li>	
-			<li>Практичні
-				<ul>
-					{% for pr in prs %}
-						<li>Практична робота {{ pr.number }}: {{ pr.title }} </li>
-						<ul>
-							<li>Переглядати</li>
-							<li>Завантажити</li>
-						</ul>
-					{% endfor %}					
-				</ul>
-			</li>	
-			<li>Лабораторні
-				<ul>
-					{% for lr in prs %}
-						<li>Лабораторна робота {{ lr.number }}: {{ lr.title }} </li>
-						<ul>
-							<li>Переглядати</li>
-							<li>Завантажити</li>
-						</ul>
-					{% endfor %}
-				</ul>
-			</li>	
+			{% if lectures %}
+				<li>Лекції
+					<ul>
+						{% for lecture in lectures %}
+							<li> Лекція номер {{ lecture.number }}: {{ lecture.name }} </li>
+							<ul>
+								{% if lecture.theory %}
+									<li><a href="/subjects/{{lecture.subject_id}}/theory/{{lecture.theory.id}}/" style="text-decoration:none;">Теорія</a></li>
+								{% endif %}
+								{% if lecture.presentation %}
+									<li>Презентація</li>
+								{% endif %}
+								{% if lecture.video %}
+									<li><a href="/subjects/{{lecture.subject_id}}/video/{{lecture.video.id}}/" style="text-decoration:none;">Відео</a></li>
+								{% endif %}
+							</ul>
+						{% endfor %}
+						
+					</ul>
+				</li>	
+			{% endif %}
+			{% if prs %}
+				<li>Практичні
+					<ul>
+						{% for pr in prs %}
+							<li><a href="#" style="text-decoration:none;">Практична робота {{ pr.number }}: {{ pr.title }} </a></li>
+						{% endfor %}					
+					</ul>
+				</li>	
+			{% endif %}
+			{% if lrs %}
+				<li>Лабораторні
+					<ul>
+						{% for lr in lrs %}
+							<li><a href="#" style="text-decoration:none;">Лабораторна робота {{ lr.number }}: {{ lr.title }} </a></li>
+						{% endfor %}
+					</ul>
+				</li>	
+			{% endif %}
+			{% if tests %}
+				<li>Підсумкові
+					<ul>
+						{% for test in tests %}
+							<li><a href="#" style="text-decoration:none;">{{test.title}}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+			{% endif %}
 		</ul>
 
 		</div>	
