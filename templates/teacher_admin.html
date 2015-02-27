@@ -23,7 +23,7 @@
 				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
 					{{ subject.name }}					
 				</a>
-
+				<a href="{% url 'delete_subject' subject.id %}"> Видалити </a>
                 <br>
 			{% endfor %}			
 		</div>		

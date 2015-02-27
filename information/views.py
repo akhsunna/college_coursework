@@ -40,6 +40,10 @@ def edit_subject(request, subject_id):
 		})
 	return render(request, 'edit_subject.html', {'form': form})
 
+def delete_subject(request, subject_id):
+	subject = Subject.objects.get(id=subject_id)
+	subject.delete()
+	return HttpResponseRedirect('/')
 
 @login_required
 def teacher_subject_list(request, author_id):
