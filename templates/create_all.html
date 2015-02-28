@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+    Hello
+{% endblock title %}
+{% block startpage %}
+    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
+{% endblock startpage %}
+{% block content %}
+	<div class="choice-block">
+        <div class="ch-title">
+			<form action="" method="post" class="form-horizontal" id="form" enctype="multipart/form-data"> {% csrf_token %}
+    				{{ subject_formset }}
+    				{{ practic_formset }}
+    				{{ practic_file_formset }}
+    			<div class="submit-container">
+                    <input class="btn-success" type="submit" value="Додати"/>
+                    <input type="hidden" name="next" value="{{ next|escape }}"/>
+                </div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

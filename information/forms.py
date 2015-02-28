@@ -7,3 +7,13 @@ class CreateSubjectForm(ModelForm):
 		model = Subject
 		fields = ['name', 'specialty','year']
 
+class PracticForm(ModelForm):
+	class Meta:
+		model = PracticalWork
+		fields = ['kind', 'number', 'title']
+
+
+class PracticFileForm(ModelForm):
+	class Meta:
+		model = PracticalWorkFile
+		fields = ['document']

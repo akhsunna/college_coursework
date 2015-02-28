@@ -1,21 +1,33 @@
 {% extends "base.html" %}
 {% block startpage %}
 	<a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
+	<a href="{% url 'create_all' %}" class="choice-variant btn btn-outlined btn-theme">Create</a>
 {% endblock startpage %}
 	
 {% block content %}
 
+	{% if messages %}
+		<ul class="messages">
+    	{% for message in messages %}
+    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+    		{% endfor %}
+		</ul>
+	{% endif %}
 <div class="choice-block">
 	<center>
 		<div class="choice-title">
 			<div class="ch-title">
+			{% if messages %}
+		<ul class="messages">
+    	{% for message in messages %}
+    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+    		{% endfor %}
+		</ul>
+	{% endif %}
 				Предмети
 			</div>
 			<div class="ch-title">
-				<form class="form-container" method="post" action="{% url 'create_subject' %}"> {% csrf_token %}
-					<input class="btn-success" type="submit" value="Добавити новий предмет"/>
-					<input type="hidden" name="next" value="{{ next|escape }}"/>
-				</form>
+				<a href="{% url 'create_subject'%}"> Створити предмет </a>
 			</div>
 		</div>		
 		<div class="choice-various">
