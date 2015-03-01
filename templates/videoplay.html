@@ -6,11 +6,14 @@
 
 <div class="video-block">
 	<video name='demo' controls autoplay class="video">
-		<source src="{% static video.document %}" type="video/mp4"></source>
+		<source src="{{ video.document.url }}" type="video/mp4"></source>
 	</video>
 	<div class="video-title">
-		<div class="">
-			{{ video.title }}
+		<div class="" style="float:left;">
+			{{ video.title }} | <a href="/subjects/{{subject.id}}/" style="text-decoration:none;">{{ subject }}</a>
+		</div>
+		<div class="" style="float:right;">
+			<a href="" style="text-decoration:none;">Завантажити</a>
 		</div>
 	</div>	
 </div>

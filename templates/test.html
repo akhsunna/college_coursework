@@ -7,11 +7,11 @@
 	<center>		
 		<div class="pdf-title" style="background-image: url({% static "images/dark.png" %})">
 			<div class="">
-				{{ theory.title }}
+				{{ test.title }}
 			</div>
 		</div>
 	</center>
-		<object type="application/pdf" class="pdf" data="{{theory.document.url}}?#zoom=85&scrollbar=0&toolbar=0&navpanes=0">
+		<object type="application/pdf" class="pdf" data="{{test.doc_name.url}}?#zoom=85&scrollbar=0&toolbar=0&navpanes=0">
 	    <p>Помилка.</p>
 	</object>
 </div>

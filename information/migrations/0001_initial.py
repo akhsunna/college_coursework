@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=255, verbose_name=b'\xd0\xa2\xd0\xb5\xd1\x81\xd1\x82')),
-                ('doc_name', models.CharField(max_length=30, verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb', blank=True)),
+                ('doc_name', models.CharField(max_length=255, verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb', blank=True)),
             ],
             options={
             },
@@ -41,6 +41,8 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateField(auto_now=True)),
             ],
             options={
+                'verbose_name': '\u041b\u0435\u043a\u0446\u0456\u044f',
+                'verbose_name_plural': '\u041b\u0435\u043a\u0446\u0456\u0457',
             },
             bases=(models.Model,),
         ),
@@ -55,6 +57,8 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateField(auto_now=True)),
             ],
             options={
+                'verbose_name': '\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u043d\u043e-\u043b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430 \u0440\u043e\u0431\u043e\u0442\u0430',
+                'verbose_name_plural': '\u041f\u0440\u0430\u043a\u0442\u0438\u0447\u043d\u043e-\u043b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0456 \u0440\u043e\u0431\u043e\u0442\u0438',
             },
             bases=(models.Model,),
         ),
@@ -62,10 +66,13 @@ class Migration(migrations.Migration):
             name='PracticalWorkFile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'ads/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
-                ('practical_work', models.ForeignKey(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0', to='information.PracticalWork')),
+                ('document', models.FileField(upload_to=b'data/practical_works/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
+                ('name', models.CharField(max_length=255, verbose_name=b'\xd0\x9d\xd0\xb0\xd0\xb7\xd0\xb2\xd0\xb0')),
+                ('practical_work', models.ForeignKey(verbose_name=b'', to='information.PracticalWork')),
             ],
             options={
+                'verbose_name': '\u0424\u0430\u0439\u043b \u0434\u043e \u0440\u043e\u0431\u043e\u0442\u0438',
+                'verbose_name_plural': '\u0424\u0430\u0439\u043b\u0438 \u0434\u043e \u0440\u043e\u0431\u0456\u0442',
             },
             bases=(models.Model,),
         ),
@@ -73,12 +80,13 @@ class Migration(migrations.Migration):
             name='Presentation',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
+                ('document', models.FileField(upload_to=b'data/presentation/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': '\u041f\u0440\u0435\u0437\u0435\u043d\u0442\u0430\u0446\u0456\u044f',
+                'verbose_name_plural': '\u041f\u0440\u0435\u0437\u0435\u043d\u0442\u0430\u0446\u0456\u0457',
             },
             bases=(models.Model,),
         ),
@@ -115,12 +123,13 @@ class Migration(migrations.Migration):
             name='Theory',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
+                ('document', models.FileField(upload_to=b'data/theory/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': '\u0422\u0435\u043e\u0440\u0456\u044f',
+                'verbose_name_plural': '\u0422\u0435\u043e\u0440\u0456\u0457',
             },
             bases=(models.Model,),
         ),
@@ -128,12 +137,13 @@ class Migration(migrations.Migration):
             name='Video',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
+                ('document', models.FileField(upload_to=b'data/video/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
                 ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': '\u0412\u0456\u0434\u0435\u043e\u0444\u0430\u0439\u043b',
+                'verbose_name_plural': '\u0412\u0456\u0434\u0435\u043e\u0444\u0430\u0439\u043b\u0438',
             },
             bases=(models.Model,),
         ),
