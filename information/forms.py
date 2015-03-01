@@ -17,3 +17,23 @@ class PracticFileForm(ModelForm):
 	class Meta:
 		model = PracticalWorkFile
 		fields = ['document']
+
+class LectureForm(ModelForm):
+	class Meta:
+		model = Lecture
+		fields = ['number', 'name']
+
+class TheoryForm(ModelForm):
+	class Meta:
+		model = Theory
+		fields = ['title', 'document']
+
+class PresentationForm(ModelForm):
+	class Meta:
+		model = Presentation
+		fields = ['title', 'document']
+
+class VideoForm(ModelForm):
+	class Meta:
+		model = Video
+		fields = ['title', 'document']

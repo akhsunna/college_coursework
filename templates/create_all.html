@@ -6,17 +6,70 @@
     <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
 {% endblock startpage %}
 {% block content %}
-	<div class="choice-block">
-        <div class="ch-title">
-			<form action="" method="post" class="form-horizontal" id="form" enctype="multipart/form-data"> {% csrf_token %}
-    				{{ subject_formset.as_p }}
-    				{{ practic_formset }}
-    				{{ file_formset }}
+	<div class="choice-block-add" >
+			<form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}
+                 {{ subject_formset.management_form }}
+                 {{ lecture_formset.management_form }}
+                 {{ theory_formset.management_form }}
+                 {{ presentation_formset.management_form }}
+                 {{ video_formset.management_form }}
+                 {{ practic_formset.management_form }}
+                 {{ file_formset.management_form }}
+                {% for form in  subject_formset %}
+                    <div class="form-title">Назва предмету</div>
+                        {{ form.name }}
+                    <div class="form-title">Спеціальність</div>
+                        {{ form.specialty }}
+                    <div class="form-title">Курс</div>
+                        {{ form.year }}
+                {% endfor %}
+                <div class="choice-title"> Теоретичні відомості та завдання до предмету: </div>         
+                    <div class="choice-title"> Теоретичні відомості: </div>        
+                        {% for form in  lecture_formset %}
+                            <div class="form-title">Назва лекції</div>
+                                {{ form.name }}
+                            <div class="form-title">Номер</div>
+                                {{ form.number }}
+                        {% endfor %}
+                         <div class="choice-title"> Теорія: </div>
+                        {% for form in  theory_formset %}
+                            <div class="form-title">Тема лекції</div>
+                                {{ form.title }}
+                            <div class="form-title">Документ лекції :</div>
+                                {{ form.document }}
+                        {% endfor %}
+                        <div class="choice-title"> Презентація: </div>
+                        {% for form in  presentation_formset %}
+                            <div class="form-title">Тема презентації</div>
+                                {{ form.title }}
+                            <div class="form-title">Файл презентації :</div>
+                                {{ form.document }}
+                        {% endfor %}
+                        <div class="choice-title"> Відеоурок: </div>
+                        {% for form in  video_formset %}
+                            <div class="form-title">Тема відеоуроку</div>
+                                {{ form.title }}
+                            <div class="form-title">Відеофайл уроку :</div>
+                                {{ form.document }}
+                        {% endfor %}
+
+                        <div class="choice-title"> Завдання: </div>  
+                        {% for form in  practic_formset %}
+                            <div class="form-title">Тема :</div>
+                                {{ form.title }}
+                            <div class="form-title">Тип :</div>
+                                {{ form.kind }}
+                            <div class="form-title">Номер :</div>
+                                {{ form.number }}
+                        {% endfor %}
+        	            {% for form in  file_formset %}
+                            <div class="form-title">Файл :</div>
+                                {{ form.document }}
+                        {% endfor %}                      
     			<div class="submit-container">
                     <input class="btn-success" type="submit" value="Додати"/>
                     <input type="hidden" name="next" value="{{ next|escape }}"/>
                 </div>
-			</form>
-		</div>
+			</form>	
 	</div>
 {% endblock content %}

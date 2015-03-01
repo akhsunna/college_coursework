@@ -49,9 +49,9 @@ class PracticalWork(models.Model):
 		(PR, 'Практична'),
 		(LR, 'Лабораторна'),
 	)
-	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип', blank=True)
-	number = models.IntegerField(verbose_name='Номер', blank=True)
-	title = models.CharField(max_length=255, verbose_name='Тема', blank=True)
+	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип')
+	number = models.IntegerField(verbose_name='Номер')
+	title = models.CharField(max_length=255, verbose_name='Тема')
 	subject = models.ForeignKey(Subject, verbose_name="Предмет")
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)	

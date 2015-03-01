@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from .models import *
-from .forms import CreateSubjectForm, PracticFileForm, PracticForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -62,11 +62,26 @@ def create_all(request):
 	subject_set = formset_factory(CreateSubjectForm)
 	practic_set = formset_factory(PracticForm)
 	file_set = formset_factory(PracticFileForm)
+	lecture_set = formset_factory(LectureForm)
+	theory_set = formset_factory(TheoryForm)
+	presentation_set = formset_factory(PresentationForm)
+	video_set = formset_factory(VideoForm) 
 	if request.method == 'POST':
 		subject_formset = subject_set(request.POST, request.FILES, prefix='subject')
 		practic_formset = practic_set(request.POST, request.FILES, prefix='practic')
 		file_formset = file_set(request.POST, request.FILES, prefix='practic_file')
-		if subject_formset.is_valid() and practic_formset.is_valid() and file_formset.is_valid() :
+		lecture_formset = lecture_set(request.POST, request.FILES, prefix='lecture')
+		theory_formset = theory_set(request.POST, request.FILES, prefix='theory')
+		presentation_formset = presentation_set(request.POST, request.FILES, prefix='presetation')
+		video_formset = video_set(request.POST, request.FILES, prefix='video') 
+		if (subject_formset.is_valid() 
+				and practic_formset.is_valid() 
+				and file_formset.is_valid() 
+				and lecture_formset.is_valid() 			
+				and theory_formset.is_valid() 
+				and presentation_formset.is_valid() 
+				and video_formset.is_valid()
+			):
 			for form in subject_formset:
 				name = form.cleaned_data['name']
 				specialty = form.cleaned_data['specialty']
@@ -80,31 +95,82 @@ def create_all(request):
 				)
 				new_subject.save()
 			for form in practic_formset:
-				kind = form.cleaned_data['kind']
-				number = form.cleaned_data['number']
-				title = form.cleaned_data['title']
+				kind = form.cleaned_data.get('kind')
+				number = form.cleaned_data.get('number')
+				title = form.cleaned_data.get('title')
 				new_practic = PracticalWork(
 						kind=kind,
 						number=number,
 						title=title,
 						subject_id=new_subject.id
 					)
-				new_practic.save()
+				if new_practic.kind!=None:
+					new_practic.save()
 			for form in file_formset:
-				document = form.cleaned_data['document']
+				document = form.cleaned_data.get('document')
 				new_file = PracticalWorkFile(
 						document=document,
 						practical_work_id=new_practic.id
-					)				
+					)
+				if new_file.document!=None:
+					new_file.save()
+			for form in lecture_formset:
+				number = form.cleaned_data.get('number')
+				name = form.cleaned_data.get('name')
+				new_lecture = Lecture(
+						number=number,
+						name=name,
+						subject_id=new_subject.id
+					)
+				if new_lecture.number!=None:
+					new_lecture.save()
+			for form in theory_formset:
+				title = form.cleaned_data.get('title')
+				document = form.cleaned_data.get('document')
+				new_theory = Theory(
+						title=title,
+						document=document,
+						lecture_id=new_lecture.id
+					)
+				if new_theory.title!=None:
+					new_theory.save()
+			for form in video_formset:
+				title = form.cleaned_data.get('title')
+				document = form.cleaned_data.get('document')
+				new_video = Video(
+						title=title,
+						document=document,
+						lecture_id=new_lecture.id
+					)
+				if new_video.title!=None:
+					new_video.save()
+			for form in presentation_formset:
+				title = form.cleaned_data.get('title')
+				document = form.cleaned_data.get('document')
+				new_presentation = Presentation(
+						title=title,
+						document=document,
+						lecture_id=new_lecture.id
+					)
+				if new_presentation.title!=None:
+					new_presentation.save()
 			messages.add_message(request, messages.INFO, 'Предмет успішно створений')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
 	else:
 		subject_formset = subject_set(prefix='subject')
 		practic_formset = practic_set(prefix='practic')
 		file_formset = file_set(prefix='practic_file')
+		lecture_formset = lecture_set(prefix='lecture')
+		theory_formset = theory_set(prefix='theory')
+		presentation_formset = presentation_set(prefix='presetation')
+		video_formset = video_set(prefix='video')
 	return render(request, 'create_all.html', {
 			'subject_formset': subject_formset,
 			'practic_formset': practic_formset,
 			'file_formset': file_formset,
+			'lecture_formset': lecture_formset,
+			'theory_formset': theory_formset,
+			'presentation_formset': presentation_formset,
+			'video_formset': video_formset,
 			})
 
