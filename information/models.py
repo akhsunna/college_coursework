@@ -43,13 +43,13 @@ class Subject(models.Model):
 		return self.name
 
 class PracticalWork(models.Model):
-	PR = 1
-	LR = 2
+	PR = 'PR'
+	LR = 'LR'
 	DOC_TYPE_CHOICES=(
 		(PR, 'Практична'),
 		(LR, 'Лабораторна'),
 	)
-	kind = models.IntegerField(choices=DOC_TYPE_CHOICES, verbose_name='Тип')
+	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип')
 	number = models.IntegerField(verbose_name='Номер')
 	title = models.CharField(max_length=255, verbose_name='Тема')
 	subject = models.ForeignKey(Subject, verbose_name="Предмет")

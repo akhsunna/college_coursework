@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
+from django.forms.models import inlineformset_factory
 
 
 def speciality_list(request):
@@ -57,64 +58,28 @@ def teacher_subject_list(request):
 
 
 @login_required
-def create_subject(request):
-	if request.method == 'POST':
-		form = CreateSubjectForm(request.POST)
-		if form.is_valid():
-			cleand = form.cleaned_data
-			new_subject = Subject(
-					name=cleand['name'],
-					specialty=cleand['specialty'],
-					year=cleand['year'],
-					author=request.user
-				)
-			new_subject.save()
-			messages.add_message(request, messages.INFO, 'Предмет успішно створений')
-			return HttpResponseRedirect(reverse('teacher_subject_list'))
-	else:
-		form = CreateSubjectForm()
-	return render(request, 'create_subject.html', {'form': form})
-
-
-@login_required
 def create_all(request):
 	SubjectFormSet = formset_factory(CreateSubjectForm)
-	PracticFormSet = formset_factory(PracticForm)
-	PracticFileFormSet = formset_factory(PracticFileForm)
 	if request.method == 'POST':
 		subject_formset = SubjectFormSet(request.POST, request.FILES, prefix='subject')
-		practic_formset = PracticFormSet(request.POST, request.FILES, prefix='practic')
-		practic_file_formset = PracticFileFormSet(request.POST, request.FILES, prefix='practic_file')
-		if subject_formset.is_valid() and practic_file_formset.is_valid() and practic_formset.is_valid():
-			cleand_subject = subject_formset.cleaned_data
-			new_subject = Subject(
-					name=cleand_subject['name'],
-					specialty=cleand_subject['specialty'],
-					year=cleand_subject['year'],
+		if subject_formset.is_valid():
+			for form in subject_formset:
+				name=form.cleaned_data['name']
+				specialty=form.cleaned_data['specialty']
+				year=form.cleaned_data['year']
+				author=request.user
+				new_subject = Subject(
+					name=name,
+					specialty=specialty,
+					year=year,
 					author=request.user
 				)
-			new_subject.save()
-			cleand_practic = practic_formset.cleaned_data
-			new_practic = PracticalWork(
-					kind=cleand_practic['kind'],
-					title=cleand_practic['title'],
-					number=cleand_practic['number'],
-					subject=new_subject.id,	
-				)
-			new_practic.save()
-			cleand_practic_file = practic_file_formset.cleaned_data
-			new_practic_file = PracticalWorkFile(
-					document=cleand_practic_file['document'],
-					practical_work=new_practic.id,
-				)
+				new_subject.save()
 			messages.add_message(request, messages.INFO, 'Предмет успішно створений')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
 	else:
 		subject_formset = SubjectFormSet(prefix='subject')
-		practic_formset = PracticFormSet(prefix='practice')
-		practic_file_formset = PracticFileFormSet(prefix='practic_file')
 	return render(request, 'create_all.html', {
 			'subject_formset': subject_formset,
-			'practic_formset': practic_formset,
-			'practic_file_formset': practic_file_formset,
 			})
+

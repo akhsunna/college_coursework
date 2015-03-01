@@ -10,8 +10,6 @@
         <div class="ch-title">
 			<form action="" method="post" class="form-horizontal" id="form" enctype="multipart/form-data"> {% csrf_token %}
     				{{ subject_formset }}
-    				{{ practic_formset }}
-    				{{ practic_file_formset }}
     			<div class="submit-container">
                     <input class="btn-success" type="submit" value="Додати"/>
                     <input type="hidden" name="next" value="{{ next|escape }}"/>
