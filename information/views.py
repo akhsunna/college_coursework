@@ -59,15 +59,19 @@ def teacher_subject_list(request):
 
 @login_required
 def create_all(request):
-	SubjectFormSet = formset_factory(CreateSubjectForm)
+	subject_set = formset_factory(CreateSubjectForm)
+	practic_set = formset_factory(PracticForm)
+	file_set = formset_factory(PracticFileForm)
 	if request.method == 'POST':
-		subject_formset = SubjectFormSet(request.POST, request.FILES, prefix='subject')
-		if subject_formset.is_valid():
+		subject_formset = subject_set(request.POST, request.FILES, prefix='subject')
+		practic_formset = practic_set(request.POST, request.FILES, prefix='practic')
+		file_formset = file_set(request.POST, request.FILES, prefix='practic_file')
+		if subject_formset.is_valid() and practic_formset.is_valid() and file_formset.is_valid() :
 			for form in subject_formset:
-				name=form.cleaned_data['name']
-				specialty=form.cleaned_data['specialty']
-				year=form.cleaned_data['year']
-				author=request.user
+				name = form.cleaned_data['name']
+				specialty = form.cleaned_data['specialty']
+				year = form.cleaned_data['year']
+				author = request.user
 				new_subject = Subject(
 					name=name,
 					specialty=specialty,
@@ -75,11 +79,32 @@ def create_all(request):
 					author=request.user
 				)
 				new_subject.save()
+			for form in practic_formset:
+				kind = form.cleaned_data['kind']
+				number = form.cleaned_data['number']
+				title = form.cleaned_data['title']
+				new_practic = PracticalWork(
+						kind=kind,
+						number=number,
+						title=title,
+						subject_id=new_subject.id
+					)
+				new_practic.save()
+			for form in file_formset:
+				document = form.cleaned_data['document']
+				new_file = PracticalWorkFile(
+						document=document,
+						practical_work_id=new_practic.id
+					)				
 			messages.add_message(request, messages.INFO, 'Предмет успішно створений')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
 	else:
-		subject_formset = SubjectFormSet(prefix='subject')
+		subject_formset = subject_set(prefix='subject')
+		practic_formset = practic_set(prefix='practic')
+		file_formset = file_set(prefix='practic_file')
 	return render(request, 'create_all.html', {
 			'subject_formset': subject_formset,
+			'practic_formset': practic_formset,
+			'file_formset': file_formset,
 			})
 

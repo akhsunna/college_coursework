@@ -49,9 +49,9 @@ class PracticalWork(models.Model):
 		(PR, 'Практична'),
 		(LR, 'Лабораторна'),
 	)
-	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип')
-	number = models.IntegerField(verbose_name='Номер')
-	title = models.CharField(max_length=255, verbose_name='Тема')
+	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип', blank=True)
+	number = models.IntegerField(verbose_name='Номер', blank=True)
+	title = models.CharField(max_length=255, verbose_name='Тема', blank=True)
 	subject = models.ForeignKey(Subject, verbose_name="Предмет")
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)	
@@ -66,7 +66,7 @@ class PracticalWork(models.Model):
 
 class PracticalWorkFile(models.Model):
 	practical_work = models.ForeignKey(PracticalWork, verbose_name='')
-	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл')
+	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл', blank=True)
 
 	class Meta:
 		verbose_name = 'Файл до роботи'
