@@ -22,14 +22,16 @@
 		</div>		
 		
 			{% for subject in subjects %}
-			<table>
-				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
+				<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
 					{{ subject.name }}					
 				</a>
-				<a href="{% url 'create_lab' subject.id %}">  Практичні роботи </a>
-				<a href="{% url 'create_theory' subject.id %}">  Теорія </a>
-				<a href="{% url 'delete_subject' subject.id %}"> Видалити </a>
- 			</table>
+				<table>
+				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">Змінити предмет </a>
+				<a href="{% url 'delete_subject' subject.id %}"> Видалити предмет </a>
+				<a href="{% url 'create_lab' subject.id %}">  Добавити завдання </a>
+				<a href="{% url 'create_theory' subject.id %}">  Добавити теорію </a>
+				</table>
+				<li>
 			{% endfor %}			
 	
 	</center>

@@ -56,7 +56,19 @@ def delete_subject(request, subject_id):
 @login_required
 def teacher_subject_list(request):
 	subjects = Subject.objects.filter(author=request.user.id)
-	return render(request, 'teacher_admin.html', {'subjects': subjects})
+	return render(request, 'teacher_admin.html', {
+		'subjects': subjects,
+		})
+
+
+@login_required
+def teacher_labs_list(request, subject_id):
+	labs = PracticalWork.objects.filter(subject=subject_id)
+	lectures = Lecture.objects.filter(subject=subject_id)
+	return render(request, 'information.html', {
+		'labs': labs,
+		'lectures': lectures,
+		})
 
 
 @login_required
