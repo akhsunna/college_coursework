@@ -1,18 +1,11 @@
 {% extends "base.html" %}
 {% block startpage %}
 	<a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-	<a href="{% url 'create_all' %}" class="choice-variant btn btn-outlined btn-theme">Create</a>
+	<a href="{% url 'create_subject' %}" class="choice-variant btn btn-outlined btn-theme"> Створити предмет </a>
 {% endblock startpage %}
 	
 {% block content %}
 
-	{% if messages %}
-		<ul class="messages">
-    	{% for message in messages %}
-    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
-    		{% endfor %}
-		</ul>
-	{% endif %}
 <div class="choice-block">
 	<center>
 		<div class="choice-title">
@@ -27,15 +20,18 @@
 				Предмети
 			</div>
 		</div>		
-		<div class="choice-various">
+		
 			{% for subject in subjects %}
+			<table>
 				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
 					{{ subject.name }}					
 				</a>
+				<a href="{% url 'create_lab' subject.id %}">  Практичні роботи </a>
+				<a href="{% url 'create_theory' subject.id %}">  Теорія </a>
 				<a href="{% url 'delete_subject' subject.id %}"> Видалити </a>
-                <br>
+ 			</table>
 			{% endfor %}			
-		</div>		
+	
 	</center>
 </div>
 

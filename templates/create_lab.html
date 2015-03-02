@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+    Hello
+{% endblock title %}
+{% block startpage %}
+    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
+{% endblock startpage %}
+{% block content %}
+          
+    <div class="choice-block-add" >
+            <form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}   
+    <div class="choice-title"> Завдання: </div>  
+                {{ practic_formset.management_form }}
+                {{ file_formset.management_form }}
+                    {% for form in  practic_formset %}
+                            <div class="form-title">Тема :</div>
+                                {{ form.title }}
+                            <div class="form-title">Тип :</div>
+                                {{ form.kind }}
+                            <div class="form-title">Номер :</div>
+                                {{ form.number }}
+                        {% endfor %}
+                        {% for form in  file_formset %}
+                            <div class="form-title">Файл :</div>
+                                {{ form.document }}
+                        {% endfor %}                  
+    			<div class="submit-container">
+                    <input class="btn-success" type="submit" value="Додати"/>
+                    <input type="hidden" name="next" value="{{ next|escape }}"/>
+                </div>
+			</form>	
+	</div>
+{% endblock content %}

@@ -4,26 +4,20 @@
 {% endblock title %}
 {% block startpage %}
     <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-    <a href="{% url 'create_practice' %}" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
 {% endblock startpage %}
 {% block content %}
-	<div class="choice-block">
-        <div class="ch-title">
-			<form action="" method="post" class="form-container" id="form">{% csrf_token %}
+	<div class="choice-block-add" >
+			<form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}
 				<div class="form-title">Назва предмету</div>
-					{{ form.name }}
-					{{ form.name.errors }}
-				<div class="form-title">Вибір спеціальності</div>
-					{{ form.specialty }}
-					{{ form.specialty.errors }}
-				<div class="form-title">Вибір курсу</div>
-					{{ form.year }}
-					{{ form.year.errors }}
-				<div class="submit-container">
+                        {{ form.name }}
+                    <div class="form-title">Спеціальність</div>
+                        {{ form.specialty }}
+                    <div class="form-title">Курс</div>
+                        {{ form.year }}
+                   	<div class="submit-container">
                     <input class="btn-success" type="submit" value="Додати"/>
                     <input type="hidden" name="next" value="{{ next|escape }}"/>
                 </div>
-			</form>
-		</div>
+			</form>	
 	</div>
 {% endblock content %}
