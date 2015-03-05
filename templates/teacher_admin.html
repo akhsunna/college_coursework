@@ -1,40 +1,49 @@
 {% extends "base.html" %}
-{% block startpage %}
-	<a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-	<a href="{% url 'create_subject' %}" class="choice-variant btn btn-outlined btn-theme"> Створити предмет </a>
-{% endblock startpage %}
-	
 {% block content %}
-
-<div class="choice-block">
+<div class="sub-block">
 	<center>
-		<div class="choice-title">
-			<div class="ch-title">
-			{% if messages %}
-		<ul class="messages">
-    	{% for message in messages %}
-    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
-    		{% endfor %}
-		</ul>
-	{% endif %}
-				Предмети
+		<div class="subj-title">
+			<div class="sub-title">
+				{% if messages %}
+					<ul class="messages">
+    					{% for message in messages %}
+    						<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+    					{% endfor %}
+					</ul>
+				{% endif %}		
 			</div>
-		</div>		
-		
-			{% for subject in subjects %}
-				<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
-					{{ subject.name }}					
-				</a>
-				<table>
-				<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">Змінити предмет </a>
-				<a href="{% url 'delete_subject' subject.id %}"> Видалити предмет </a>
-				<a href="{% url 'create_lab' subject.id %}">  Добавити завдання </a>
-				<a href="{% url 'create_theory' subject.id %}">  Добавити теорію </a>
-				</table>
-				<li>
-			{% endfor %}			
-	
+		</div>
 	</center>
+	<div  class="subject-block">	
+	<ul>
+		{% for subject in subjects %}
+			<li class="closeable close"> Предмет - "{{ subject.name }}" 
+				<ul>
+					<li>
+						<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
+						Перегляд змісту предмета</a>
+					</li>
+					<li>
+						<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;"> Змінити основні дані предмету </a>
+					</li>
+					<li>
+						<a href="{% url 'create_theory' subject.id %}" style="text-decoration:none;">  Добавити теорію </a>
+					</li>
+					<li>
+						<a href="{% url 'create_lab' subject.id %}" style="text-decoration:none;">  Добавити завдання </a>
+					</li>
+					<li>
+						<a href="{% url 'delete_subject' subject.id %}" style="text-decoration:none;"> Видалити предмет </a>
+					</li>
+				</ul>
+			</li>
+		{% endfor %}
+	</ul>
+	</div>
 </div>
-
 {% endblock %}
+
+        {% block sidebarbottom %}
+                    <a href="{% url 'create_subject'%}" class="choice-variant btn btn-outlined btn-theme">Створити предмет </a>
+                    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+        {% endblock %}

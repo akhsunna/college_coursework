@@ -1,48 +1,73 @@
 {% extends "base.html" %}
-{% block title %}
-    Hello
-{% endblock title %}
-{% block startpage %}
-    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-{% endblock startpage %}
 {% block content %}
-<div class="choice-block-add" >
+<div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
 			<form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}
  				{{ lecture_formset.management_form }}
                 {{ theory_formset.management_form }}
                 {{ presentation_formset.management_form }}
                 {{ video_formset.management_form }}
-                 		{% for form in  lecture_formset %}
+                {% for form in  lecture_formset %}
                             <div class="form-title">Назва лекції</div>
                                 {{ form.name }}
                             <div class="form-title">Номер</div>
                                 {{ form.number }}
-                        {% endfor %}
-                         <div class="choice-title"> Теорія: </div>
-                        {% for form in  theory_formset %}
-                            <div class="form-title">Тема лекції</div>
-                                {{ form.title }}
-                            <div class="form-title">Документ лекції :</div>
-                                {{ form.document }}
-                      	 {% endfor %}
-                      	  <div class="choice-title"> Презентація: </div>
-                        {% for form in  presentation_formset %}
-                            <div class="form-title">Тема презентації</div>
-                                {{ form.title }}
-                            <div class="form-title">Файл презентації :</div>
-                                {{ form.document }}
-                        {% endfor %}
-                        <div class="choice-title"> Відеоурок: </div>
-                        {% for form in  video_formset %}
-                            <div class="form-title">Тема відеоуроку</div>
-                                {{ form.title }}
-                            <div class="form-title">Відеофайл уроку :</div>
-                                {{ form.document }}
-                        {% endfor %}
+                {% endfor %}
+
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in theory_formset %}
+                        <li class="closeable close"> Теорія 
+                            <ul>
+                                    <div class="form-title">Назва матеріалу</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Документ :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>      
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in presentation_formset %}
+                        <li class="closeable close"> Презентація 
+                            <ul>
+                                    <div class="form-title">Назва презентації</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Файл :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>  		
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in theory_formset %}
+                        <li class="closeable close"> Відеоурок 
+                            <ul>
+                                    <div class="form-title">Назва відеоуроку</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Відеофайл :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div> 
                        <div class="submit-container">
                     <input class="btn-success" type="submit" value="Додати"/>
                     <input type="hidden" name="next" value="{{ next|escape }}"/>
                 </div>
 			</form>	
-	</div>
+	       </div>
+        </div>
+    </center>
+    </div>
 {% endblock content %}

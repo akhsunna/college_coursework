@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django import forms
+from django.forms.models import inlineformset_factory
 from .models import *
 
 class CreateSubjectForm(ModelForm):
@@ -37,3 +38,6 @@ class VideoForm(ModelForm):
 	class Meta:
 		model = Video
 		fields = ['title', 'document']
+
+
+LabsFormSet = inlineformset_factory(PracticalWork, PracticalWorkFile)

@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-{% block title %}
-    Hello
-{% endblock title %}
-{% block startpage %}
-    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-{% endblock startpage %}
+
 {% block content %}
-    <div class="choice-block">
-        <div class="ch-title">
+    <div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
             <form class="form-container" action="" method="post">{% csrf_token %}
             <br>
                 <div class="form-title">Нікнейм</div>

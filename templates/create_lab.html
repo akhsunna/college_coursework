@@ -1,15 +1,11 @@
 {% extends "base.html" %}
-{% block title %}
-    Hello
-{% endblock title %}
-{% block startpage %}
-    <a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-{% endblock startpage %}
 {% block content %}
-          
-    <div class="choice-block-add" >
+ <div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
             <form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}   
-    <div class="choice-title"> Завдання: </div>  
+                <div class="sub-title"> Завдання: </div>  
                 {{ practic_formset.management_form }}
                 {{ file_formset.management_form }}
                     {% for form in  practic_formset %}
@@ -29,5 +25,12 @@
                     <input type="hidden" name="next" value="{{ next|escape }}"/>
                 </div>
 			</form>	
-	</div>
+	       </div>
+        </div>
+    </center>
+ </div>
 {% endblock content %}
+{% block sidebarbottom %}
+    <a href="{% url 'teacher_subject_list'%}" class="choice-variant btn btn-outlined btn-theme">Перейти на сторінку адміна</a>
+    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+{% endblock %}

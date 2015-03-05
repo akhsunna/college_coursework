@@ -5946,7 +5946,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-radius: 3px;
 }
 
-.close {
+/*.close {
   float: right;
   font-size: 21px;
   font-weight: bold;
@@ -5955,16 +5955,16 @@ a.list-group-item.active:focus .list-group-item-text {
   text-shadow: 0 1px 0 #ffffff;
   opacity: 0.2;
   filter: alpha(opacity=20);
-}
+}*/
 
-.close:hover,
+/*.close:hover,
 .close:focus {
   color: #000000;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.5;
   filter: alpha(opacity=50);
-}
+}*/
 
 button.close {
   padding: 0;
