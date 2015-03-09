@@ -77,9 +77,6 @@ class PracticalWorkFile(models.Model):
 	def __str__(self):
 		return str(self.pk)
 
-@receiver(pre_delete, sender=PracticalWorkFile)
-def practical_work_file_delete(sender, instance, **kwargs):
-	instance.file.delete(False)
 
 class Lecture(models.Model):
 	number = models.IntegerField(verbose_name='Номер')
@@ -99,7 +96,7 @@ class Lecture(models.Model):
 class LecturePart(models.Model):
 	class Meta:
 		abstract = True	
-	title = models.TextField(verbose_name='Тема')
+	title = models.TextField(verbose_name='Опис')
 	lecture = models.OneToOneField(Lecture, verbose_name="Лекція")	
 
 

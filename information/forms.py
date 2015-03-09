@@ -18,7 +18,7 @@ class PracticFileForm(ModelForm):
 	class Meta:
 		model = PracticalWorkFile
 		fields = ['document']
-		
+
 class LectureForm(ModelForm):
 	class Meta:
 		model = Lecture
@@ -39,5 +39,3 @@ class VideoForm(ModelForm):
 		model = Video
 		fields = ['title', 'document']
 
-
-LabsFormSet = inlineformset_factory(PracticalWork, PracticalWorkFile)

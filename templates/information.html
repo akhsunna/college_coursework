@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="sub-block">
-        <div  class="subject-block">    
-            <ul>
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
             	{% for lab in labs %}
-                            	<ul>
-                                <li><a href="{% url 'edit_labs' lab.id %}"> {{ lab.title }}  </a></li>
-                                <li><a href="{% url 'delete_lab' lab.id %}"> Видалити </a> </li>
-                            </ul>
-                 	{% endfor %}
-                      
-            </ul>
-        </div>  
- 		</div>
- </div>
+            	<li class="closeable close"><span class="js-closeable">Завдання </span>  
+                    <ul>
+                        <li><a href="{% url 'edit_labs' lab.id %}"> {{ lab.title }}  </a></li>
+                        <li><a href="{% url 'delete_lab' lab.id %}"> Видалити </a> </li>
+                    </ul>
+                </li>
+				{% endfor %}
+                {% for lecture in lectures %}
+                <li class="closeable close"><span class="js-closeable">Лекція {{ lecture.name }} </span>  
+                    <ul>
+                        <li><a href="{% url 'add_theory' lecture.id %}"> Добавити теорію  </a></li>
+                        <li><a href="{% url 'add_presentation' lecture.id %}"> Добавити презентацію  </a></li>
+                        <li><a href="{% url 'add_video' lecture.id %}"> Добавити відео  </a></li>
+                        <li><a href="{% url 'delete_lecture' lecture.id %}"> Видалити </a> </li>
+                    </ul>
+                </li>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</div>
 {% endblock %}
