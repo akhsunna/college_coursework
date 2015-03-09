@@ -1,13 +1,14 @@
 $( function() {
-  $('.closeable').on('click', function(e) {
-    if (!$(this).hasClass('close')) {
-      $(this).height('');
+  $('.js-closeable').on('click', function(e) {
+    var $wrapper = $($(this).closest('li'));
+    if (!$wrapper.hasClass('close')) {
+      $wrapper.height('');
     }
     else {
-      $(this).height($(this).attr('data-height'));
+      $wrapper.height($wrapper.attr('data-height'));
     }
-    $(this).toggleClass('close');
+    $wrapper.toggleClass('close');
   }).height('auto').each(function() {
-    $(this).attr('data-height', $(this).height());
+    $wrapper.attr('data-height', $wrapper.height());
   }).height('');
 });

@@ -17,7 +17,7 @@
 	<div  class="subject-block">	
 	<ul>
 		{% for subject in subjects %}
-			<li class="closeable close"> Предмет - "{{ subject.name }}" 
+			<li class="closeable close"><span class="js-closeable">  Предмет - "{{ subject.name }}" </span>
 				<ul>
 					<li>
 						<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">

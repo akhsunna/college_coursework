@@ -1,5 +1,7 @@
 ﻿from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 class CourseNumber(models.Model):
 	FIRST_COURSE = 1
@@ -74,6 +76,10 @@ class PracticalWorkFile(models.Model):
 
 	def __str__(self):
 		return str(self.pk)
+
+@receiver(pre_delete, sender=PracticalWorkFile)
+def practical_work_file_delete(sender, instance, **kwargs):
+	instance.file.delete(False)
 
 class Lecture(models.Model):
 	number = models.IntegerField(verbose_name='Номер')

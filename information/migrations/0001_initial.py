@@ -2,20 +2,22 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='CheckTest',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=255, verbose_name=b'\xd0\xa2\xd0\xb5\xd1\x81\xd1\x82')),
-                ('doc_name', models.CharField(max_length=30, verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb', blank=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.CharField(verbose_name='Тест', max_length=255)),
+                ('doc_name', models.CharField(verbose_name='Файл', blank=True, max_length=255)),
             ],
             options={
             },
@@ -24,8 +26,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseNumber',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('number', models.IntegerField(choices=[(1, b'1 \xd0\xba\xd1\x83\xd1\x80\xd1\x81'), (2, b'2 \xd0\xba\xd1\x83\xd1\x80\xd1\x81'), (3, b'3 \xd0\xba\xd1\x83\xd1\x80\xd1\x81'), (4, b'4 \xd0\xba\xd1\x83\xd1\x80\xd1\x81')])),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('number', models.IntegerField(choices=[(1, '1 курс'), (2, '2 курс'), (3, '3 курс'), (4, '4 курс')])),
             ],
             options={
             },
@@ -34,125 +36,135 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Lecture',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('number', models.IntegerField(verbose_name=b'\xd0\x9d\xd0\xbe\xd0\xbc\xd0\xb5\xd1\x80')),
-                ('name', models.CharField(max_length=255, verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('number', models.IntegerField(verbose_name='Номер')),
+                ('name', models.CharField(verbose_name='Тема', max_length=255)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
             ],
             options={
+                'verbose_name': 'Лекція',
+                'verbose_name_plural': 'Лекції',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PracticalWork',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('kind', models.IntegerField(verbose_name=b'\xd0\xa2\xd0\xb8\xd0\xbf', choices=[(1, b'\xd0\x9f\xd1\x80\xd0\xb0\xd0\xba\xd1\x82\xd0\xb8\xd1\x87\xd0\xbd\xd0\xb0'), (2, b'\xd0\x9b\xd0\xb0\xd0\xb1\xd0\xbe\xd1\x80\xd0\xb0\xd1\x82\xd0\xbe\xd1\x80\xd0\xbd\xd0\xb0')])),
-                ('number', models.IntegerField(verbose_name=b'\xd0\x9d\xd0\xbe\xd0\xbc\xd0\xb5\xd1\x80')),
-                ('title', models.CharField(max_length=255, verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('kind', models.CharField(verbose_name='Тип', max_length=255, choices=[('PR', 'Практична'), ('LR', 'Лабораторна')])),
+                ('number', models.IntegerField(verbose_name='Номер')),
+                ('title', models.CharField(verbose_name='Тема', max_length=255)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
             ],
             options={
+                'verbose_name': 'Практично-лабораторна робота',
+                'verbose_name_plural': 'Практично-лабораторні роботи',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PracticalWorkFile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'ads/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
-                ('practical_work', models.ForeignKey(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0', to='information.PracticalWork')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('document', models.FileField(verbose_name='Файл', upload_to='data/practical_works/', blank=True)),
+                ('practical_work', models.ForeignKey(verbose_name='', to='information.PracticalWork')),
             ],
             options={
+                'verbose_name': 'Файл до роботи',
+                'verbose_name_plural': 'Файли до робіт',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Presentation',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
-                ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
-                ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.TextField(verbose_name='Тема')),
+                ('document', models.FileField(verbose_name='Файл', upload_to='data/presentation/')),
+                ('lecture', models.OneToOneField(verbose_name='Лекція', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': 'Презентація',
+                'verbose_name_plural': 'Презентації',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Speciality',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255, verbose_name=b'\xd0\xa1\xd0\xba\xd0\xbe\xd1\x80\xd0\xbe\xd1\x87\xd0\xb5\xd0\xbd\xd0\xb0 \xd0\xbd\xd0\xb0\xd0\xb7\xd0\xb2\xd0\xb0')),
-                ('full_name', models.CharField(max_length=255, verbose_name=b'\xd0\x9f\xd0\xbe\xd0\xb2\xd0\xbd\xd0\xb0 \xd0\xbd\xd0\xb0\xd0\xb7\xd0\xb2\xd0\xb0')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('name', models.CharField(verbose_name='Скорочена назва', max_length=255)),
+                ('full_name', models.CharField(verbose_name='Повна назва', max_length=255)),
             ],
             options={
-                'verbose_name': '\u0421\u043f\u0435\u0446\u0456\u0430\u043b\u044c\u043d\u0456\u0441\u0442\u044c',
-                'verbose_name_plural': '\u0421\u043f\u0435\u0446\u0456\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0456',
+                'verbose_name': 'Спеціальність',
+                'verbose_name_plural': 'Спеціальності',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Subject',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255, verbose_name=b'\xd0\x9d\xd0\xb0\xd0\xb7\xd0\xb2\xd0\xb0')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('name', models.CharField(verbose_name='Назва', max_length=255)),
                 ('created_at', models.DateField(auto_now_add=True)),
                 ('updated_at', models.DateField(auto_now=True)),
-                ('specialty', models.ForeignKey(related_name='subjects', verbose_name=b'\xd0\xa1\xd0\xbf\xd0\xb5\xd1\x86\xd1\x96\xd0\xb0\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x96\xd1\x81\xd1\x82\xd1\x8c', to='information.Speciality')),
-                ('year', models.ForeignKey(verbose_name=b'\xd0\x9a\xd1\x83\xd1\x80\xd1\x81', to='information.CourseNumber')),
+                ('author', models.ForeignKey(null=True, blank=True, to=settings.AUTH_USER_MODEL)),
+                ('specialty', models.ForeignKey(to='information.Speciality', verbose_name='Спеціальність', related_name='subjects')),
+                ('year', models.ForeignKey(verbose_name='Курс', to='information.CourseNumber')),
             ],
             options={
-                'verbose_name': '\u041f\u0440\u0435\u0434\u043c\u0435\u0442',
-                'verbose_name_plural': '\u041f\u0440\u0435\u0434\u043c\u0435\u0442\u0438',
+                'verbose_name': 'Предмет',
+                'verbose_name_plural': 'Предмети',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Theory',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
-                ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
-                ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.TextField(verbose_name='Тема')),
+                ('document', models.FileField(verbose_name='Файл', upload_to='data/theory/')),
+                ('lecture', models.OneToOneField(verbose_name='Лекція', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': 'Теорія',
+                'verbose_name_plural': 'Теорії',
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Video',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('document', models.FileField(upload_to=b'insdfs/', verbose_name=b'\xd0\xa4\xd0\xb0\xd0\xb9\xd0\xbb')),
-                ('title', models.TextField(verbose_name=b'\xd0\xa2\xd0\xb5\xd0\xbc\xd0\xb0')),
-                ('lecture', models.OneToOneField(verbose_name=b'\xd0\x9b\xd0\xb5\xd0\xba\xd1\x86\xd1\x96\xd1\x8f', to='information.Lecture')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.TextField(verbose_name='Тема')),
+                ('document', models.FileField(verbose_name='Файл', upload_to='data/video/')),
+                ('lecture', models.OneToOneField(verbose_name='Лекція', to='information.Lecture')),
             ],
             options={
-                'abstract': False,
+                'verbose_name': 'Відеофайл',
+                'verbose_name_plural': 'Відеофайли',
             },
             bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='practicalwork',
             name='subject',
-            field=models.ForeignKey(verbose_name=b'\xd0\x9f\xd1\x80\xd0\xb5\xd0\xb4\xd0\xbc\xd0\xb5\xd1\x82', to='information.Subject'),
+            field=models.ForeignKey(verbose_name='Предмет', to='information.Subject'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='lecture',
             name='subject',
-            field=models.ForeignKey(verbose_name=b'\xd0\x9f\xd1\x80\xd0\xb5\xd0\xb4\xd0\xbc\xd0\xb5\xd1\x82', to='information.Subject'),
+            field=models.ForeignKey(verbose_name='Предмет', to='information.Subject'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='checktest',
             name='subject',
-            field=models.ForeignKey(verbose_name=b'\xd0\x9f\xd1\x80\xd0\xb5\xd0\xb4\xd0\xbc\xd0\xb5\xd1\x82', to='information.Subject'),
+            field=models.ForeignKey(verbose_name='Предмет', to='information.Subject'),
             preserve_default=True,
         ),
     ]

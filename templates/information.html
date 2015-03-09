@@ -1,45 +1,17 @@
 {% extends "base.html" %}
-{% block startpage %}
-	<a href="/" class="choice-variant btn btn-outlined btn-theme">Повернутися на головну сторінку</a>
-{% endblock startpage %}
-	
 {% block content %}
-
-<div class="choice-block">
-	<center>
-		<div class="choice-title">
-			<div class="ch-title">
-			{% if messages %}
-		<ul class="messages">
-    	{% for message in messages %}
-    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
-    		{% endfor %}
-		</ul>
-	{% endif %}
-				Завдання 
-			</div>
-		</div>		
-		
-			{% for lab in labs %}
-					{{ lab.title }}					
-			{% endfor %}			
-	
-	</center>
-</div>
-
-<div class="choice-block">
-	<center>
-		<div class="choice-title">
-			<div class="ch-title">
-				Теорія 
-			</div>
-		</div>		
-		
-			{% for lecture in lectures %}
-					{{ lecture.name }}					
-			{% endfor %}			
-	
-	</center>
-</div>
-
+<div class="sub-block">
+        <div  class="subject-block">    
+            <ul>
+            	{% for lab in labs %}
+                            	<ul>
+                                <li><a href="{% url 'edit_labs' lab.id %}"> {{ lab.title }}  </a></li>
+                                <li><a href="{% url 'delete_lab' lab.id %}"> Видалити </a> </li>
+                            </ul>
+                 	{% endfor %}
+                      
+            </ul>
+        </div>  
+ 		</div>
+ </div>
 {% endblock %}

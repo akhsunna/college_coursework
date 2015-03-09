@@ -19,7 +19,7 @@
                 <div  class="subject-block">    
                 <ul>
                     {% for form in theory_formset %}
-                        <li class="closeable close"> Теорія 
+                        <li class="closeable close"><span class="js-closeable">Теорія </span>  
                             <ul>
                                     <div class="form-title">Назва матеріалу</div>
                                         {{ form.title }}
@@ -34,7 +34,7 @@
                 <div  class="subject-block">    
                 <ul>
                     {% for form in presentation_formset %}
-                        <li class="closeable close"> Презентація 
+                        <li class="closeable close"> <span class="js-closeable">Презентація </span>  
                             <ul>
                                     <div class="form-title">Назва презентації</div>
                                         {{ form.title }}
@@ -49,7 +49,7 @@
                 <div  class="subject-block">    
                 <ul>
                     {% for form in theory_formset %}
-                        <li class="closeable close"> Відеоурок 
+                        <li class="closeable close"> <span class="js-closeable">Відеоурок</span> 
                             <ul>
                                     <div class="form-title">Назва відеоуроку</div>
                                         {{ form.title }}

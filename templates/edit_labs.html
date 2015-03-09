@@ -4,20 +4,27 @@
     <center>
         <div class="subj-title">
             <div class="sub-title" style="font-size:30px">
-			<form action="" method="post" class="form-container" id="form">{% csrf_token %}
-				<div class="form-title">Назва предмету</div>
-					{{ form.name }}
-					{{ form.name.errors }}
-				<div class="form-title">Вибір спеціальності</div>
-					{{ form.specialty }}
-					{{ form.specialty.errors }}
-				<div class="form-title">Вибір курсу</div>
-					{{ form.year }}
-					{{ form.year.errors }}
+			<form action="" method="post" class="form-container" id="form" enctype="multipart/form-data">{% csrf_token %}
+				{{ practic_formset.management_form }}
+                {{ practic_file_formset.management_form }}
+
+                {% for form in practic_formset %}
+                <div class="form-title">type</div>
+                	{{ form.kind }}
+                <div class="form-title">number</div>
+                	{{ form.number }}
+                <div class="form-title">title</div>
+                	{{ form.title }}
+                {% endfor %}
+
+                {% for form in practic_file_formset %}
+                	<div class="form-title">document </div>
+                		{{ form.document }}
+                {% endfor %}
+
 				<div class="submit-container">
 	                <input class="btn-success" type="submit" value="Зберегти внесені зміни"/>
 	                <input type="hidden" name="next" value="{{ next|escape }}"/>
-	
 	               </div>
 			</form>
 		</div>
