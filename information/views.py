@@ -48,6 +48,12 @@ def delete_lecture(request, lecture_id):
 	return HttpResponseRedirect(reverse('teacher_subject_list'))
 
 
+def delete_test(request,test_id):
+	test = CheckTest.objects.get(id=test_id)
+	test.delete()
+	messages.add_message(request, messages.INFO, 'Підсумок успішно видалений')
+	return HttpResponseRedirect(reverse('teacher_subject_list'))
+
 @login_required
 def teacher_subject_list(request):
 	subjects = Subject.objects.filter(author=request.user.id)
@@ -60,9 +66,11 @@ def teacher_subject_list(request):
 def teacher_labs_list(request, subject_id):
 	labs = PracticalWork.objects.filter(subject=subject_id)
 	lectures = Lecture.objects.filter(subject=subject_id)
+	tests = CheckTest.objects.filter(subject=subject_id)
 	return render(request, 'information.html', {
 		'labs': labs,
 		'lectures': lectures,
+		'tests':tests,
 		})
 
 
@@ -87,6 +95,26 @@ def create_subject(request):
 
 
 @login_required
+def edit_test(request, test_id):
+	test = CheckTest.objects.get(id=test_id)
+	if request.method == 'POST':
+		form = TestForm(request.POST, request.FILES,instance=test)
+		if form.is_valid():
+			cleand = form.cleaned_data
+			test.title = cleand['title']
+			test.doc_name = cleand['doc_name']
+			test.save()
+		messages.add_message(request, messages.INFO, 'Підсумок успішно змінений')
+		return HttpResponseRedirect(reverse('teacher_subject_list'))
+	else:
+		form = TestForm({
+			'title': test.title, 
+			'doc_name': test.doc_name, 
+		}, instance=test)
+	return render(request, 'edit_test.html', {'form': form})
+
+
+@login_required
 def add_lecture(request, subject_id):
 	if request.method == 'POST':
 		form = LectureForm(request.POST)
@@ -98,6 +126,7 @@ def add_lecture(request, subject_id):
 					subject_id=subject_id,
 				)
 			new_lecture.save()
+			messages.add_message(request, messages.INFO, 'Лекція успішно добавленна')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
 	else:
 		form = LectureForm()
@@ -105,11 +134,29 @@ def add_lecture(request, subject_id):
 
 
 @login_required
+def add_test(request, subject_id):
+	if request.method == 'POST':
+		form = TestForm(request.POST, request.FILES)
+		if form.is_valid():
+			cleand = form.cleaned_data
+			new_test = CheckTest(
+					title=cleand['title'],
+					doc_name=cleand['doc_name'],
+					subject_id=subject_id,
+				)
+			new_test.save()
+			messages.add_message(request, messages.INFO, 'Підумкові дані успішно добавлені')
+			return HttpResponseRedirect(reverse('teacher_subject_list'))
+	else:
+		form = TestForm(request.POST, request.FILES)
+	return render(request, 'add_test.html', {'form': form})
+
+@login_required
 def add_presentation(request, lecture_id):
 	if Presentation.objects.filter(lecture_id=lecture_id).exists():
 		presentation = Presentation.objects.get(lecture_id=lecture_id)
 		if request.method == 'POST':
-			form = PresentationForm(request.POST, request.FILES)
+			form = PresentationForm(request.POST, request.FILES,instance=presentation)
 			if form.is_valid():
 				cleand = form.cleaned_data
 				presentation.title = cleand['title']
@@ -121,7 +168,7 @@ def add_presentation(request, lecture_id):
 			form = PresentationForm({
 				'title': presentation.title, 
 				'document': presentation.document, 
-			})
+			}, instance=presentation)
 		return render(request, 'edit_presentation.html', {'form': form})
 	else:
 		if request.method == 'POST':
@@ -149,7 +196,7 @@ def add_video(request, lecture_id):
 	if Video.objects.filter(lecture_id=lecture_id).exists():
 		video = Video.objects.get(lecture_id=lecture_id)
 		if request.method == 'POST':
-			form = VideoForm(request.POST, request.FILES)
+			form = VideoForm(request.POST, request.FILES, instance=video)
 			if form.is_valid():
 				cleand = form.cleaned_data
 				video.title = cleand['title']
@@ -161,7 +208,7 @@ def add_video(request, lecture_id):
 			form = VideoForm({
 				'title': video.title, 
 				'document': video.document, 
-			})
+			},instance=video)
 		messages.add_message(request, messages.INFO, 'Відео успішно змінене')
 		return render(request, 'edit_video.html', {'form': form})
 	else:
@@ -186,7 +233,7 @@ def add_theory(request, lecture_id):
 	if Theory.objects.filter(lecture_id=lecture_id).exists():
 		theory = Theory.objects.get(lecture_id=lecture_id)
 		if request.method == 'POST':
-			form = TheoryForm(request.POST, request.FILES)
+			form = TheoryForm(request.POST, request.FILES, instance=theory)
 			if form.is_valid():
 				cleand = form.cleaned_data
 				theory.title = cleand['title']
@@ -198,7 +245,7 @@ def add_theory(request, lecture_id):
 			form = TheoryForm({
 				'title': theory.title, 
 				'document': theory.document, 
-			})
+			}, instance=theory)
 		return render(request, 'edit_theory.html', {'form': form})
 	else:
 		if request.method == 'POST':
@@ -214,7 +261,7 @@ def add_theory(request, lecture_id):
 				messages.add_message(request, messages.INFO, 'Теорія успішно добавленна')
 				return HttpResponseRedirect(reverse('teacher_subject_list'))
 		else:
-			form = TheoryForm()
+			form = TheoryForm(instance=theory)
 		return render(request, 'add_theory.html', {'form': form})
 
 

@@ -5,9 +5,9 @@
         <div class="subj-title">
             <div class="sub-title" style="font-size:30px">
             	{% for lab in labs %}
-            	<li class="closeable close"><span class="js-closeable">Завдання </span>  
+            	<li class="closeable close"><span class="js-closeable">Завдання {{ lab.title }} </span>  
                     <ul>
-                        <li><a href="{% url 'edit_labs' lab.id %}"> {{ lab.title }}  </a></li>
+                        <li><a href="{% url 'edit_labs' lab.id %}">  Змінити дані </a></li>
                         <li><a href="{% url 'delete_lab' lab.id %}"> Видалити </a> </li>
                     </ul>
                 </li>
@@ -19,6 +19,14 @@
                         <li><a href="{% url 'add_presentation' lecture.id %}"> Презентація  </a></li>
                         <li><a href="{% url 'add_video' lecture.id %}"> Відео  </a></li>
                         <li><a href="{% url 'delete_lecture' lecture.id %}"> Видалити </a> </li>
+                    </ul>
+                </li>
+                {% endfor %}
+                {% for test in tests %}
+                <li class="closeable close"><span class="js-closeable">Тест -  {{ test.title }} </span>  
+                    <ul>
+                        <li><a href="{% url 'edit_test' test.id %}">Змінити </a></li>
+                        <li><a href="{% url 'delete_test' test.id %}"> Видалити </a> </li>
                     </ul>
                 </li>
                 {% endfor %}

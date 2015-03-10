@@ -40,3 +40,8 @@ class VideoForm(ModelForm):
 		model = Video
 		fields = ['title', 'document']
 
+
+class TestForm(ModelForm):
+	class Meta:
+		model = CheckTest
+		fields = ['title', 'doc_name']

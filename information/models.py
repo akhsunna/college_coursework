@@ -18,6 +18,9 @@ class CourseNumber(models.Model):
 	def __str__(self):
 		return self.get_number_display()	
 
+	class Meta:
+		verbose_name = 'Курс'
+		verbose_name_plural = 'Курси'
 
 class Speciality(models.Model):
 	name = models.CharField(max_length=255, verbose_name='Скорочена назва')
@@ -132,5 +135,9 @@ class Video(LecturePart):
 
 class CheckTest(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Тест')
-	doc_name = models.CharField(max_length=255, blank=True, verbose_name='Файл')
+	doc_name = models.FileField(upload_to='data/test/', verbose_name='Файл')
 	subject = models.ForeignKey(Subject, verbose_name='Предмет')
+
+	class Meta:
+		verbose_name = 'Підсумкок'
+		verbose_name_plural = 'Підсумкові'

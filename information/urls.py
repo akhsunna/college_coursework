@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 	url(r'^theory/add/(\d+)/$', views.add_theory, name='add_theory'),
 	url(r'^video/add/(\d+)/$', views.add_video, name='add_video'),
 	url(r'^presentation/add/(\d+)/$', views.add_presentation, name='add_presentation'),
-
-
+	url(r'^test/add/(\d+)/$', views.add_test, name='add_test'),
+	url(r'^test/edit/(\d+)/$', views.edit_test, name='edit_test'),
+	url(r'^test/delete/(\d+)/$', views.delete_test, name='delete_test'),
 )

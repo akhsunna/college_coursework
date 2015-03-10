@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Speciality, CourseNumber, Subject, PracticalWorkFile, PracticalWork,Lecture, LecturePart, Theory, Presentation, Video, CheckTest 
+from .models import CheckTest, Speciality, CourseNumber, Subject, PracticalWorkFile, PracticalWork,Lecture, LecturePart, Theory, Presentation, Video, CheckTest 
 
 
 class SpecialityOption(admin.ModelAdmin):
@@ -58,3 +58,4 @@ admin.site.register(PracticalWork, PracticaAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Speciality, SpecialityOption)
 admin.site.register(CourseNumber)
+admin.site.register(CheckTest)
