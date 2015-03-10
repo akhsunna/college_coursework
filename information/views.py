@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from information.models import Speciality, CourseNumber, Subject, Lecture, PracticalWork, Video, Theory, CheckTest, PracticalWorkFile
+from information.models import Speciality, CourseNumber, Subject, Lecture, PracticalWork, Video, Theory, CheckTest, PracticalWorkFile, Presentation
+import sys
+import os
+
 
 def speciality_list(request):
 	specialities = Speciality.objects.all()
@@ -25,11 +28,13 @@ def subject_show(request, subject_id):
 def video_show(request,subject_id,video_id):
 	video = Video.objects.get(id=video_id)
 	subject = Subject.objects.get(id=subject_id)
-	return render(request,'videoplay.html',{'video':video,'subject':subject})
+	slide = 1
+	return render(request,'videoplay.html',{'video':video,'subject':subject,'slide':slide})
 
 def theory_show(request,subject_id,theory_id):
 	theory = Theory.objects.get(id=theory_id)
-	return render(request,'pdf.html',{'theory':theory})
+	subject = Subject.objects.get(id=subject_id)
+	return render(request,'pdf.html',{'theory':theory,'subject':subject})
 
 def pr_show(request,subject_id,pr_id):
 	work = PracticalWork.objects.get(id=pr_id)
@@ -40,3 +45,10 @@ def pr_show(request,subject_id,pr_id):
 def test_show(request,subject_id,test_id):
 	test = CheckTest.objects.get(id=test_id)
 	return render(request,'test.html',{'test':test})
+
+def presentation_show(request,subject_id,prs_id):
+	folder = str(prs_id)
+	os.makedirs(folder, exist_ok=True)
+	files = os.listdir("mediafiles/data/pres/"+folder)
+	subject = Subject.objects.get(id=subject_id)
+	return render(request,'presentation.html',{'subject':subject,'files':files,'folder':folder})

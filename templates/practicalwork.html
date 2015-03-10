@@ -5,17 +5,17 @@
 <div class="sub-block">
 	<center>
 		<div class="subj-title">
-			<div class="sub-title">
+			<div class="sub-title" style="font-size:30px">
 				{% if work.kind == 2 %}
 					Лабораторна робота
 				{% else %}
 					Практична робота 
 				{% endif %}
-				№{{ work.number }} 
+				№{{ work.number }}
 				<br />
 				{{ work.title }}
 				<br />
-				| <a href="/subjects/{{subject.id}}/" style="text-decoration:none;">{{ subject }}</a> |			
+				<a href="/subjects/{{subject.id}}/" style="text-decoration:none;font-size:20px;">| {{ subject }} |</a>			
 			</div>
 		</div>
 		{% load staticfiles %}
@@ -23,7 +23,7 @@
 			{% for doc in docs %}
 				<a href="" style="text-decoration:none;">
 					{{ doc.name }}	
-				</a>
+				</a> <br>
 			{% endfor %}	
 			{% if not docs %}	
 				НЕМАЄ

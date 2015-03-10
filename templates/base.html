@@ -2,19 +2,23 @@
 <html lang="uk">
 <head>
     {% load staticfiles %}
+    <script type="text/javascript" src="{% static "js/jquery-2.1.3.min.js" %}"></script>
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
     <link href="{% static "css/bootstrap-theme.min.css" %}" rel="stylesheet">
     <link href="{% static "css/bootstrap-theme.css" %}" rel="stylesheet">
     <link href="{% static "css/main.css" %}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static "js/subject.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.js" %}"></script> 
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
     <title>{% block title %}TEACHING MATERIALS{% endblock %}</title>
 </head>
 
 <body style="background-image:url({% static "images/intro-bg.jpg" %})">
     <div id="sidebar">
         {% block sidebar %}
-            <a href="" class="item" style="float:left;font-family:'Pacifico',cursive;font-size:28px;text-decoration:none;">Teaching Materials</a>
+            <a href="/specialities/" class="item" style="float:left;font-family:'Pacifico',cursive;font-size:28px;text-decoration:none;">Python Хуйня</a>
         {% endblock %}
     </div>
     <div id="content">
@@ -22,7 +26,7 @@
     </div>
     <div id="sidebar-bottom">
         {% block sidebarbottom %}
-            <a href="#" class="choice-variant btn btn-outlined btn-theme menubtn" style="float:right;">Увійти як вчитель</a>
+            <a href="#" class="choice-variant btn btn-outlined btn-theme menubtn" style="float:right;">Увійти як федос</a>
         {% endblock %}
     </div>
 </body>

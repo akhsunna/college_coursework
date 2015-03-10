@@ -15,28 +15,29 @@
 
 		<ul>
 			{% if lectures %}
-				<li>Лекції
+				<li>Лекції    <!-- closeable close -->
 					<ul>
 						{% for lecture in lectures %}
-							<li> Лекція номер {{ lecture.number }}: {{ lecture.name }} </li>
-							<ul>
-								{% if lecture.theory %}
-									<li><a href="/subjects/{{subject.id}}/theory/{{lecture.theory.id}}/" style="text-decoration:none;">Теорія</a></li>
-								{% endif %}
-								{% if lecture.presentation %}
-									<li>Презентація</li>
-								{% endif %}
-								{% if lecture.video %}
-									<li><a href="/subjects/{{subject.id}}/video/{{lecture.video.id}}/" style="text-decoration:none;">Відео</a></li>
-								{% endif %}
-							</ul>
+							<li class="closeable close"> Лекція номер {{ lecture.number }}: {{ lecture.name }} 
+								<ul>
+									{% if lecture.theory %}
+										<li><a href="/subjects/{{subject.id}}/theory/{{lecture.theory.id}}/" style="text-decoration:none;">Теорія</a></li>
+									{% endif %}
+									{% if lecture.presentation %}
+										<li><a href="/subjects/{{subject.id}}/presentation/{{lecture.presentation.id}}/" style="text-decoration:none;">Презентація</a></li>
+									{% endif %}
+									{% if lecture.video %}
+										<li><a href="/subjects/{{subject.id}}/video/{{lecture.video.id}}/" style="text-decoration:none;">Відео</a></li>
+									{% endif %}
+								</ul>
+							</li>
 						{% endfor %}
 						
 					</ul>
 				</li>	
 			{% endif %}
 			{% if prs %}
-				<li>Практичні
+				<li class="closeable close">Практичні
 					<ul>
 						{% for pr in prs %}
 							<li><a href="/subjects/{{subject.id}}/work/{{pr.id}}/" style="text-decoration:none;">Практична робота {{ pr.number }}: {{ pr.title }} </a></li>
@@ -45,7 +46,7 @@
 				</li>	
 			{% endif %}
 			{% if lrs %}
-				<li>Лабораторні
+				<li class="closeable close">Лабораторні
 					<ul>
 						{% for lr in lrs %}
 							<li><a href="/subjects/{{subject.id}}/work/{{lr.id}}/" style="text-decoration:none;">Лабораторна робота {{ lr.number }}: {{ lr.title }} </a></li>
@@ -54,7 +55,7 @@
 				</li>	
 			{% endif %}
 			{% if tests %}
-				<li>Підсумкові
+				<li class="closeable close">Підсумкові
 					<ul>
 						{% for test in tests %}
 							<li><a href="/subjects/{{subject.id}}/test/{{test.id}}/" style="text-decoration:none;">{{test.title}}</a></li>
