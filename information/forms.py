@@ -23,6 +23,7 @@ class LectureForm(ModelForm):
 	class Meta:
 		model = Lecture
 		fields = ['number', 'name']
+		extra = 0
 
 class TheoryForm(ModelForm):
 	class Meta:

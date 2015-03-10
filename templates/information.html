@@ -15,9 +15,9 @@
                 {% for lecture in lectures %}
                 <li class="closeable close"><span class="js-closeable">Лекція {{ lecture.name }} </span>  
                     <ul>
-                        <li><a href="{% url 'add_theory' lecture.id %}"> Добавити теорію  </a></li>
-                        <li><a href="{% url 'add_presentation' lecture.id %}"> Добавити презентацію  </a></li>
-                        <li><a href="{% url 'add_video' lecture.id %}"> Добавити відео  </a></li>
+                        <li><a href="{% url 'add_theory' lecture.id %}">Теорія </a></li>
+                        <li><a href="{% url 'add_presentation' lecture.id %}"> Презентація  </a></li>
+                        <li><a href="{% url 'add_video' lecture.id %}"> Відео  </a></li>
                         <li><a href="{% url 'delete_lecture' lecture.id %}"> Видалити </a> </li>
                     </ul>
                 </li>

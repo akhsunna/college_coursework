@@ -106,56 +106,118 @@ def add_lecture(request, subject_id):
 
 @login_required
 def add_presentation(request, lecture_id):
-	if request.method == 'POST':
-		form = PresentationForm(request.POST)
-		if form.is_valid():
-			cleand = form.cleaned_data
-			new_presentation = Presentation(
-					title=cleand['title'],
-					document=cleand['document'],
-					lecture_id=lecture_id,
-				)
-			new_presentation.save()
+	if Presentation.objects.filter(lecture_id=lecture_id).exists():
+		presentation = Presentation.objects.get(lecture_id=lecture_id)
+		if request.method == 'POST':
+			form = PresentationForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				presentation.title = cleand['title']
+				presentation.document = cleand['document']
+				presentation.save()
+			messages.add_message(request, messages.INFO, 'Презентація успішно змінена')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = PresentationForm({
+				'title': presentation.title, 
+				'document': presentation.document, 
+			})
+		return render(request, 'edit_presentation.html', {'form': form})
 	else:
-		form = PresentationForm()
-	return render(request, 'add_information.html', {'form': form})
+		if request.method == 'POST':
+			form = PresentationForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				new_presentation = Presentation(
+						title=cleand['title'],
+						document=cleand['document'],
+						lecture_id=lecture_id,
+					)
+				new_presentation.save()
+				messages.add_message(request, messages.INFO, 'Презентація успішно добавленна')
+				return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = PresentationForm()
+		return render(request, 'add_presentation.html', {'form': form})
+
+
+
 
 
 @login_required
 def add_video(request, lecture_id):
-	if request.method == 'POST':
-		form = VideoForm(request.POST)
-		if form.is_valid():
-			cleand = form.cleaned_data
-			new_video = Video(
-					title=cleand['title'],
-					document=cleand['document'],
-					lecture_id=lecture_id,
-				)
-			new_video.save()
+	if Video.objects.filter(lecture_id=lecture_id).exists():
+		video = Video.objects.get(lecture_id=lecture_id)
+		if request.method == 'POST':
+			form = VideoForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				video.title = cleand['title']
+				video.document = cleand['document']
+				video.save()
+			messages.add_message(request, messages.INFO, 'Відео успішно змінена')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = VideoForm({
+				'title': video.title, 
+				'document': video.document, 
+			})
+		messages.add_message(request, messages.INFO, 'Відео успішно змінене')
+		return render(request, 'edit_video.html', {'form': form})
 	else:
-		form = VideoForm()
-	return render(request, 'add_information.html', {'form': form})
+		if request.method == 'POST':
+			form = VideoForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				new_video = Video(
+						title=cleand['title'],
+						document=cleand['document'],
+						lecture_id=lecture_id,
+					)
+				new_video.save()
+				return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = VideoForm()
+		return render(request, 'add_video.html', {'form': form})
 
 
 @login_required
 def add_theory(request, lecture_id):
-	if request.method == 'POST':
-		form = TheoryForm(request.POST)
-		if form.is_valid():
-			cleand = form.cleaned_data
-			new_theory = Theory(
-					title=cleand['title'],
-					document=cleand['document'],
-					lecture_id=lecture_id,
-				)
-			new_theory.save()
+	if Theory.objects.filter(lecture_id=lecture_id).exists():
+		theory = Theory.objects.get(lecture_id=lecture_id)
+		if request.method == 'POST':
+			form = TheoryForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				theory.title = cleand['title']
+				theory.document = cleand['document']
+				theory.save()
+				messages.add_message(request, messages.INFO, 'Теорія успішно змінена')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = TheoryForm({
+				'title': theory.title, 
+				'document': theory.document, 
+			})
+		return render(request, 'edit_theory.html', {'form': form})
 	else:
-		form = TheoryForm()
-	return render(request, 'add_information.html', {'form': form})
+		if request.method == 'POST':
+			form = TheoryForm(request.POST, request.FILES)
+			if form.is_valid():
+				cleand = form.cleaned_data
+				new_theory = Theory(
+						title=cleand['title'],
+						document=cleand['document'],
+						lecture_id=lecture_id,
+					)
+				new_theory.save()
+				messages.add_message(request, messages.INFO, 'Теорія успішно добавленна')
+				return HttpResponseRedirect(reverse('teacher_subject_list'))
+		else:
+			form = TheoryForm()
+		return render(request, 'add_theory.html', {'form': form})
+
+
 
 @login_required
 def create_lab(request, subject_id):
