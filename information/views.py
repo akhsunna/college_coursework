@@ -304,7 +304,7 @@ def add_theory(request, lecture_id):
 				messages.add_message(request, messages.INFO, 'Теорія успішно добавленна')
 				return HttpResponseRedirect(reverse('teacher_subject_list'))
 		else:
-			form = TheoryForm(instance=theory)
+			form = TheoryForm()
 		return render(request, 'add_theory.html', {'form': form})
 
 

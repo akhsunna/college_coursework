@@ -325,4 +325,15 @@ margin-top:20px;
   color: #ffffff;
 }
 
+
+.closeable2 {
+  overflow: hidden;
+  transition: height 1s ease;
+  color: #ffffff;
+  font: normal normal normal 24px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+}
+.closeable2.close2 {
+  height: 30px;
+  color: #ffffff;
+}
     

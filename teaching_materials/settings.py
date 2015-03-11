@@ -70,10 +70,10 @@ WSGI_APPLICATION = 'teaching_materials.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'teaching_materials',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '1111',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
