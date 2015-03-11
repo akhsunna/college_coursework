@@ -50,5 +50,7 @@ def presentation_show(request,subject_id,prs_id):
 	folder = str(prs_id)
 	os.makedirs(folder, exist_ok=True)
 	files = os.listdir("mediafiles/data/pres/"+folder)
+	topfile = files.pop
 	subject = Subject.objects.get(id=subject_id)
-	return render(request,'presentation.html',{'subject':subject,'files':files,'folder':folder})
+	files2 = os.listdir("mediafiles/data/pres/"+folder)
+	return render(request,'presentation.html',{'subject':subject,'files':files,'folder':folder,'topfile':topfile,'files2':files2})

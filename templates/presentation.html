@@ -4,29 +4,117 @@
 
 {% load staticfiles %}
 
-<div id="myCarousel" class="carousel slide">
+<div class="row">
+    <div class="col-xs-12" id="slider">
+        <!-- Top part of the slider -->
+        <div class="row">
+
+			<div class="col-sm-8" id="carousel-bounding-box">
+				<div id="myCarousel" class="carousel slide pres-block">
+					<div class="carousel-inner pres" role="listbox">
+						<!-- <div class="item active" data-slide-number="1">
+					       	<img src="/media/data/pres/{{ folder }}/{{ topfile }}" alt="Third slide" style="width:100%;">
+					    </div>
+						{% for file in files %}
+					        <div class="item" data-slide-number="0">
+					        	<img src="/media/data/pres/{{ folder }}/{{ file }}" style="width:100%;">
+					        </div>
+					    {% endfor %} -->
+					    <div class="item active" data-slide-number="0">
+					       	<img src="/media/data/pres/1/Slayd1.jpg" alt="Third slide" style="width:100%;">
+					    </div>
+					    <div class="item" data-slide-number="1">
+					       	<img src="/media/data/pres/1/Slayd2.jpg" alt="Third slide" style="width:100%;">
+					    </div>
+					    <div class="item" data-slide-number="2">
+					       	<img src="/media/data/pres/1/Slayd3.jpg" alt="Third slide" style="width:100%;">
+					    </div>
+				    </div>
+
+					<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="left:-50%;height:80%;">
+				        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				        <span class="sr-only">Previous</span>
+				    </a>
+				    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="right:50%;height:80%;">
+				        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				        <span class="sr-only">Next</span>
+				    </a>
+				</div>
+			</div>
+
+
+<!-- 			<div class="col-sm-4" id="carousel-text"></div>
+			<div id="slide-content" style="display: none;">
+			    <div id="slide-content-0">
+			        <h2>Slider One</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+
+			    <div id="slide-content-1">
+			        <h2>Slider Two</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+
+			    <div id="slide-content-2">
+			        <h2>Slider Three</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+
+			    <div id="slide-content-3">
+			        <h2>Slider Four</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+
+			    <div id="slide-content-4">
+			        <h2>Slider Five</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+
+			    <div id="slide-content-5">
+			        <h2>Slider Six</h2>
+			        <p>Lorem Ipsum Dolor</p>
+			        <p class="sub-text">October 24 2014 - <a href="#">Read more</a></p>
+			    </div>
+			</div>
+ -->		</div>
+	</div>
+</div>
 
 
 
-	<div class="carousel-inner" role="listbox">
-		<div class="item active">
-	       	<img src="/media/data/pres/{{ folder }}/{{ files.pop }}" alt="Third slide">
-	    </div>
-		{% for file in files %}
-	        <div class="item">
-	        	<img src="/media/data/pres/{{ folder }}/{{ file }}">
-	        </div>
-	    {% endfor %}
-    </div>
 
-	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+
+
+
+
+
+
+
+
+
+<div class="row hidden-xs" id="slider-thumbs">
+        <ul class="hide-bullets">
+        	<!-- {% for file in files2 %}
+		        <li class="col-sm-2">
+		        	<a class="thumbnail" id="carousel-selector-0"><img src="/media/data/pres/{{ folder }}/{{ file }}"></a>
+		        </li>
+			{% endfor %} -->
+			<li class="col-sm-2">
+		     	<a class="thumbnail" id="carousel-selector-0"><img src="/media/data/pres/1/Slayd1.jpg"></a>
+		    </li>
+		    <li class="col-sm-2">
+		     	<a class="thumbnail" id="carousel-selector-1"><img src="/media/data/pres/1/Slayd2.jpg"></a>
+		    </li>
+		    <li class="col-sm-2">
+		     	<a class="thumbnail" id="carousel-selector-2"><img src="/media/data/pres/1/Slayd3.jpg"></a>
+		    </li>
+        </ul>     
+
 </div>
 
 
