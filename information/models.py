@@ -72,6 +72,8 @@ class PracticalWork(models.Model):
 class PracticalWorkFile(models.Model):
 	practical_work = models.ForeignKey(PracticalWork, verbose_name='')
 	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл')
+	name = models.CharField(max_length=255, verbose_name='Назва')
+
 
 	class Meta:
 		verbose_name = 'Файл до роботи'
@@ -114,7 +116,7 @@ class Theory(LecturePart):
 		return self.title
 
 class Presentation(LecturePart):	
-	document = models.FileField(upload_to='data/presentation/', verbose_name='Файл')
+	document = models.FileField(upload_to='data/presentationn/', verbose_name='Файл')
 
 	class Meta:
 		verbose_name = 'Презентація'

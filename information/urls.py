@@ -2,11 +2,20 @@ from django.conf.urls import patterns, url
 from information import views
 
 urlpatterns = patterns('',
-	url('^$',views.speciality_list, name = "speciality_list"),
+	url(r'^specialities/$',views.speciality_list, name = "speciality_list"), 
+	url(r'^specialities/(?P<speciality_id>\d+)/courses/$', views.course_list, name='course_list'),
+	url(r'^specialities/(?P<speciality_id>\d+)/courses/(?P<course_id>\d+)/subjects', views.subject_list, name='subject_list'),
+	url(r'^subjects/(?P<subject_id>\d+)/$', views.subject_show, name='subject_show'),
+	url(r'^subjects/(?P<subject_id>\d+)/video/(?P<video_id>\d+)', views.video_show, name="video_show"),
+	url(r'^subjects/(?P<subject_id>\d+)/theory/(?P<theory_id>\d+)', views.theory_show, name='theory_show'),
+	url(r'^subjects/(?P<subject_id>\d+)/presentation/(?P<prs_id>\d+)', views.presentation_show, name='presentation_show'),
+	url(r'^subjects/(?P<subject_id>\d+)/work/(?P<pr_id>\d+)', views.pr_show, name="pr_show"),
+	url(r'^subjects/(?P<subject_id>\d+)/test/(?P<test_id>\d+)', views.test_show, name='test_show'),
+
 	url(r'^subject/create/$', views.create_subject, name='create_subject'),
 	url(r'^labs/create/(\d+)/$', views.create_lab, name='create_lab'),
 	url(r'^labs/list/(\d+)/$', views.teacher_labs_list, name='teacher_labs_list'),
-	#url(r'^theory/create/(\d+)$', views.create_theory, name='create_theory'),
+
 	url(r'^labs/edit/(\d+)/$', views.edit_labs, name='edit_labs'),
 	url(r'^lecture/edit/(\d+)/$', views.edit_lecture, name='edit_lecture'),
 	url(r'^subject/delete/(\d+)/$', views.delete_subject, name='delete_subject'),

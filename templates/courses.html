@@ -15,7 +15,7 @@
 		</div>		
 		<div class="choice-various">
 			{% for course in courses %}
-				<a href="/{{ speciality_id }}/{{ course.id }}/" style="text-decoration:none;" class="choice-variant btn btn-outlined btn-theme" data-wow-delay="0.7s">
+				<a href="/specialities/{{speciality_id}}/courses/{{course.id}}/subjects/" style="text-decoration:none;" class="choice-variant btn btn-outlined btn-theme" data-wow-delay="0.7s">
 					
 						{{ course.number }}
 					

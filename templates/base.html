@@ -9,30 +9,34 @@
     <link href="{% static "css/bootstrap-theme.css" %}" rel="stylesheet">
     <link href="{% static "css/main.css" %}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="{% static "js/subject_mine.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/subject.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.js" %}"></script> 
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/pres.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/list.js" %}"></script>
     <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
     <script type="text/javascript" src="{% static "js/formset.min.js" %}"></script>
-     <title>{% block title %}TEACHING MATERIALS{% endblock %}</title>
+    <title>{% block title %}TEACHING MATERIALS{% endblock %}</title>
 </head>
+
 <body style="background-image:url({% static "images/intro-bg.jpg" %})">
     <div id="sidebar">
         {% block sidebar %}
-            <a href="/" class="item" style="float:left;font-family:'Pacifico',cursive;font-size:28px;text-decoration:none;">Teaching Materials</a>
+            <a href="/specialities/" class="item" style="float:left;font-family:'Pacifico',cursive;font-size:28px;text-decoration:none;">Teaching materials</a>
         {% endblock %}
     </div>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-        <div id="sidebar-bottom">
+    <div id="sidebar-bottom">
         {% block sidebarbottom %}
             {% if user.is_authenticated %}
                     <a href="{% url 'teacher_subject_list'%}" class="choice-variant btn btn-outlined btn-theme">Перейти на сторінку адміна</a>
                     <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
             {% else %}           
-                    <a href="{% url 'teacher_login' %}" class="choice-variant btn btn-outlined btn-theme">Увійти як вчитель</a>
+                    <a href="{% url 'teacher_login' %}" class="choice-variant btn btn-outlined btn-theme" style="float:right;">Увійти як вчитель</a>
             {% endif %}
         {% endblock %}
     </div>
-
 </body>
 </html>

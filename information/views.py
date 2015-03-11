@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import PermissionDenied
 from django.forms.formsets import formset_factory
 from django.forms.models import inlineformset_factory
+import sys
+import os
 
 
 def speciality_list(request):
@@ -23,7 +25,48 @@ def course_list(request, speciality_id):
 
 def subject_list(request, speciality_id, course_id):
 	subjects = Subject.objects.filter(specialty=speciality_id,year=course_id)
-	return render(request,'subjects.html',{'subjects':subjects})
+	return render(request,'subjects.html',{'subjects':subjects,'course_id':course_id,'speciality_id':speciality_id})
+
+def subject_show(request, subject_id):
+	subject = Subject.objects.get(id=subject_id)
+	lectures = Lecture.objects.filter(subject=subject_id)
+	prs = PracticalWork.objects.filter(subject=subject_id,kind=1)
+	lrs = PracticalWork.objects.filter(subject=subject_id,kind=2)
+	tests = CheckTest.objects.filter(subject=subject_id)
+	return render(request,'subject.html',{'subject':subject,'lectures':lectures,'prs':prs,'lrs':lrs,'tests':tests})
+
+def video_show(request,subject_id,video_id):
+	video = Video.objects.get(id=video_id)
+	subject = Subject.objects.get(id=subject_id)
+	slide = 1
+	return render(request,'videoplay.html',{'video':video,'subject':subject,'slide':slide})
+
+def theory_show(request,subject_id,theory_id):
+	theory = Theory.objects.get(id=theory_id)
+	subject = Subject.objects.get(id=subject_id)
+	return render(request,'pdf.html',{'theory':theory,'subject':subject})
+
+def pr_show(request,subject_id,pr_id):
+	work = PracticalWork.objects.get(id=pr_id)
+	subject = Subject.objects.get(id=subject_id)
+	docs = PracticalWorkFile.objects.filter(practical_work=pr_id)
+	return render(request,'practicalwork.html',{'work':work,'docs':docs,'subject':subject})
+
+def test_show(request,subject_id,test_id):
+	test = CheckTest.objects.get(id=test_id)
+	return render(request,'test.html',{'test':test})
+
+def presentation_show(request,subject_id,prs_id):
+	folder = str(prs_id)
+	os.makedirs(folder, exist_ok=True)
+	files = os.listdir("mediafiles/data/pres/"+folder)
+	topfile = files.pop
+	subject = Subject.objects.get(id=subject_id)
+	files2 = os.listdir("mediafiles/data/pres/"+folder)
+	return render(request,'presentation.html',{'subject':subject,'files':files,'folder':folder,'topfile':topfile,'files2':files2})
+
+
+
 
 
 
@@ -287,8 +330,10 @@ def create_lab(request, subject_id):
 					)
 				new_practic.save()
 			for form in file_formset:
+				name = form.cleaned_data.get('name')
 				document = form.cleaned_data.get('document')
 				new_file = PracticalWorkFile(
+						name=name,
 						document=document,
 						practical_work_id=new_practic.id
 					)
@@ -344,6 +389,7 @@ def edit_labs(request, practic_id):
 				practic.title = title
 				practic.save()
 			for form in practic_file_formset:
+				name = form.cleaned_data.get('name')
 				document = form.cleaned_data.get('document')
 				practic_file.document = document
 				practic_file.save()
@@ -358,7 +404,8 @@ def edit_labs(request, practic_id):
 				'title': practic.title,
 			}], prefix='practic')			
 		practic_file_formset = practic_file_set(initial=[({
-			'document': practic_file.document
+			'name': practic_file.name,
+			'document': practic_file.document,
 			})], prefix='practic_file')
 	return render(request, 'edit_labs.html', {
 			'practic_formset': practic_formset,
@@ -474,5 +521,3 @@ def edit_lecture(request, lecture_id):
 # 			'presentation_formset': presentation_formset,
 # 			'video_formset': video_formset,
 # 		})
-
-
