@@ -110,4 +110,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-GRAPPELLI_ADMIN_TITLE = 'Admin'
+GRAPPELLI_ADMIN_TITLE = 'Адміністративна сторінка сайту'

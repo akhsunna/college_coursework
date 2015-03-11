@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.urlresolvers import reverse
+from information.views import teacher_subject_list
+
 # Create your views here.
 
 def login(request):
@@ -8,7 +11,7 @@ def login(request):
 	if request.POST:
 		if form.is_valid():
 			auth.login(request, form.get_user())
-			return redirect('/')
+			return HttpResponseRedirect(reverse("teacher_subject_list"))
 		else:
 			return render(request, 'login.html', {'form': form})
 	else:

@@ -261,7 +261,7 @@ def add_theory(request, lecture_id):
 				messages.add_message(request, messages.INFO, 'Теорія успішно добавленна')
 				return HttpResponseRedirect(reverse('teacher_subject_list'))
 		else:
-			form = TheoryForm(instance=theory)
+			form = TheoryForm()
 		return render(request, 'add_theory.html', {'form': form})
 
 
@@ -406,73 +406,73 @@ def edit_lecture(request, lecture_id):
 			'theory_formset': theory_formset,
 		})
 
-@login_required
-def create_theory(request, subject_id):
-	subject = Subject.objects.get(id=subject_id)
-	if subject.author != request.user:
-		raise PermissionDenied()
-	lecture_set = formset_factory(LectureForm)
-	theory_set = formset_factory(TheoryForm)
-	presentation_set = formset_factory(PresentationForm)
-	video_set = formset_factory(VideoForm) 
-	if request.method == 'POST':
-		theory_formset = theory_set(request.POST, request.FILES, prefix='theory')
-		lecture_formset = lecture_set(request.POST, request.FILES, prefix='lecture')
-		presentation_formset = presentation_set(request.POST, request.FILES, prefix='presentation')
-		video_formset = video_set(request.POST, request.FILES, prefix='video') 
-		if (lecture_formset.is_valid() and theory_formset.is_valid()
-			and video_formset.is_valid() and presentation_formset.is_valid()
-			):
-			for form in lecture_formset:
-				number = form.cleaned_data.get('number')
-				name = form.cleaned_data.get('name')
-				new_lecture = Lecture(
-						number=number,
-						name=name,
-						subject_id=subject.id
-					)
-				new_lecture.save()
-			for form in theory_formset:
-				title = form.cleaned_data.get('title')
-				document = form.cleaned_data.get('document')
-				new_theory = Theory(
-						title=title,
-						document=document,
-						lecture_id=new_lecture.id
-					)
-				new_theory.save()
-			for form in video_formset:
-				title = form.cleaned_data.get('title')
-				document = form.cleaned_data.get('document')
-				new_video = Video(
-						title=title,
-						document=document,
-						lecture_id=new_lecture.id
-					)
-				if new_video.title!=None:
-					new_video.save()
-				for form in presentation_formset:
-					title = form.cleaned_data.get('title')
-					document = form.cleaned_data.get('document')
-					new_presentation = Presentation(
-							title=title,
-							document=document,
-							lecture_id=new_lecture.id
-						)
-					if new_presentation.title!=None:
-						new_presentation.save()
-			messages.add_message(request, messages.INFO, 'Теоретичний матеріал успішно доданий')
-			return HttpResponseRedirect(reverse('teacher_subject_list'))
-	else:
-		lecture_formset = lecture_set(prefix='lecture')
-		theory_formset = theory_set(prefix='theory')
-		presentation_formset = presentation_set(prefix='presentation')
-		video_formset = video_set(prefix='video')
-	return render(request, 'create_theory.html', {
-			'lecture_formset': lecture_formset,
-			'theory_formset': theory_formset,
-			'presentation_formset': presentation_formset,
-			'video_formset': video_formset,
-		})
+# @login_required
+# def create_theory(request, subject_id):
+# 	subject = Subject.objects.get(id=subject_id)
+# 	if subject.author != request.user:
+# 		raise PermissionDenied()
+# 	lecture_set = formset_factory(LectureForm)
+# 	theory_set = formset_factory(TheoryForm)
+# 	presentation_set = formset_factory(PresentationForm)
+# 	video_set = formset_factory(VideoForm) 
+# 	if request.method == 'POST':
+# 		theory_formset = theory_set(request.POST, request.FILES, prefix='theory')
+# 		lecture_formset = lecture_set(request.POST, request.FILES, prefix='lecture')
+# 		presentation_formset = presentation_set(request.POST, request.FILES, prefix='presentation')
+# 		video_formset = video_set(request.POST, request.FILES, prefix='video') 
+# 		if (lecture_formset.is_valid() and theory_formset.is_valid()
+# 			and video_formset.is_valid() and presentation_formset.is_valid()
+# 			):
+# 			for form in lecture_formset:
+# 				number = form.cleaned_data.get('number')
+# 				name = form.cleaned_data.get('name')
+# 				new_lecture = Lecture(
+# 						number=number,
+# 						name=name,
+# 						subject_id=subject.id
+# 					)
+# 				new_lecture.save()
+# 			for form in theory_formset:
+# 				title = form.cleaned_data.get('title')
+# 				document = form.cleaned_data.get('document')
+# 				new_theory = Theory(
+# 						title=title,
+# 						document=document,
+# 						lecture_id=new_lecture.id
+# 					)
+# 				new_theory.save()
+# 			for form in video_formset:
+# 				title = form.cleaned_data.get('title')
+# 				document = form.cleaned_data.get('document')
+# 				new_video = Video(
+# 						title=title,
+# 						document=document,
+# 						lecture_id=new_lecture.id
+# 					)
+# 				if new_video.title!=None:
+# 					new_video.save()
+# 				for form in presentation_formset:
+# 					title = form.cleaned_data.get('title')
+# 					document = form.cleaned_data.get('document')
+# 					new_presentation = Presentation(
+# 							title=title,
+# 							document=document,
+# 							lecture_id=new_lecture.id
+# 						)
+# 					if new_presentation.title!=None:
+# 						new_presentation.save()
+# 			messages.add_message(request, messages.INFO, 'Теоретичний матеріал успішно доданий')
+# 			return HttpResponseRedirect(reverse('teacher_subject_list'))
+# 	else:
+# 		lecture_formset = lecture_set(prefix='lecture')
+# 		theory_formset = theory_set(prefix='theory')
+# 		presentation_formset = presentation_set(prefix='presentation')
+# 		video_formset = video_set(prefix='video')
+# 	return render(request, 'create_theory.html', {
+# 			'lecture_formset': lecture_formset,
+# 			'theory_formset': theory_formset,
+# 			'presentation_formset': presentation_formset,
+# 			'video_formset': video_formset,
+# 		})
 
 
