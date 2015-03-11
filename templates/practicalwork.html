@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="sub-block">
+	<center>
+		<div class="subj-title">
+			<div class="sub-title" style="font-size:30px">
+				{% if work.kind == 2 %}
+					Лабораторна робота
+				{% else %}
+					Практична робота 
+				{% endif %}
+				№{{ work.number }}
+				<br />
+				{{ work.title }}
+				<br />
+				<a href="/subjects/{{subject.id}}/" style="text-decoration:none;font-size:20px;">| {{ subject }} |</a>			
+			</div>
+		</div>
+		{% load staticfiles %}
+		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">		
+			{% for doc in docs %}
+				<a href="" style="text-decoration:none;">
+					{{ doc.name }}	
+				</a> <br>
+			{% endfor %}	
+			{% if not docs %}	
+				НЕМАЄ
+			{% endif %}	
+		</div>		
+	</center>
+</div>
+
+{% endblock %}

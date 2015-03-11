@@ -13,8 +13,8 @@ a {
 #sidebar {
     position: fixed;
     left: 0px;
-    top: 0px;
-    width: 100%;
+    top: 0px;/*
+    width: 100%;*/
     z-index: 1000;
     padding: 10px 15px;
 }
@@ -231,9 +231,6 @@ div.subjects-list {
 
 
 
-
-
-
 div.subject-block {
     padding: 20px 10px 20px 10px;
     font-size: 24px;
@@ -279,6 +276,7 @@ object.pdf {
     width: 850px;
 }
 
+
 div.pdf-title {
     position: relative;
     left: -50%;
@@ -292,6 +290,29 @@ div.pdf-title {
 
 
 
+/*
+div.pres-block {
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    top: 10%;
+    width: 50%;    
+    max-width: 1200px;
+}
+
+div.pres {
+    position: relative;
+    left: -50%;
+    width: 100%;
+}*/
+
+
+.hide-bullets {
+list-style:none;
+margin-left: -40px;
+margin-top:20px;
+}
+
 
 .closeable {
   overflow: hidden;
@@ -303,7 +324,5 @@ div.pdf-title {
   height: 30px;
   color: #ffffff;
 }
-
-
 
     
