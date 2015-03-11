@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
+			<form action="" method="post" id="form" enctype="multipart/form-data"> {% csrf_token %}
+ 				{{ lecture_formset.management_form }}
+                {{ theory_formset.management_form }}
+                {{ presentation_formset.management_form }}
+                {{ video_formset.management_form }}
+                {% for form in  lecture_formset %}
+                            <div class="form-title">Назва лекції</div>
+                                {{ form.name }}
+                            <div class="form-title">Номер</div>
+                                {{ form.number }}
+                {% endfor %}
+
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in theory_formset %}
+                        <li class="closeable close"><span class="js-closeable">Теорія </span>  
+                            <ul>
+                                    <div class="form-title">Назва матеріалу</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Документ :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>      
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in presentation_formset %}
+                        <li class="closeable close"> <span class="js-closeable">Презентація </span>  
+                            <ul>
+                                    <div class="form-title">Назва презентації</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Файл :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>  		
+                <div  class="subject-block">    
+                <ul>
+                    {% for form in theory_formset %}
+                        <li class="closeable close"> <span class="js-closeable">Відеоурок</span> 
+                            <ul>
+                                    <div class="form-title">Назва відеоуроку</div>
+                                        {{ form.title }}
+                                
+                                     <div class="form-title">Відеофайл :</div>
+                                        {{ form.document }}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div> 
+                       <div class="submit-container">
+                    <input class="btn-success" type="submit" value="Додати"/>
+                    <input type="hidden" name="next" value="{{ next|escape }}"/>
+                </div>
+			</form>	
+	       </div>
+        </div>
+    </center>
+    </div>
+{% endblock content %}

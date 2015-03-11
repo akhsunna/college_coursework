@@ -57,3 +57,4 @@ target/
 *.pyc
 
 mediafiles/
+local_settings.py

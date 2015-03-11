@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
+			<form action="" method="post" class="form-container" id="form" enctype="multipart/form-data">{% csrf_token %}
+				<div class="form-title">Короткий опис</div>
+					{{ form.title }}
+				<div class="form-title">Документ</div>
+					{{ form.doc_name }}
+				<div class="submit-container">
+	                <input class="btn-success" type="submit" value="Добавити дані"/>
+	                <input type="hidden" name="next" value="{{ next|escape }}"/>
+	
+	               </div>
+			</form>
+		</div>
+	</div>
+	</center>
+	</div>
+{% endblock content %}
+{% block sidebarbottom %}
+    <a href="{% url 'teacher_subject_list'%}" class="choice-variant btn btn-outlined btn-theme">Перейти на сторінку адміна</a>
+    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
+            <form class="form-container" action="" method="post">{% csrf_token %}
+            <br>
+                <div class="form-title">Нікнейм</div>
+                <input class="form-field" type="text" name="username"/><br/>
+                {{ form.username.errors }}
+
+                <div class="form-title">Пароль</div>
+                <input class="form-field" type="password" name="password"/><br/>
+                {{ form.password.errors }}
+                <br>
+                <div class="submit-container">
+                    <input class="btn-success" type="submit" value="Увійти"/>
+                    <input type="hidden" name="next" value="{{ next|escape }}"/>
+                </div>
+                <div class="form-title">{{ login_error }}</div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

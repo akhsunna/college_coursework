@@ -231,9 +231,6 @@ div.subjects-list {
 
 
 
-
-
-
 div.subject-block {
     padding: 20px 10px 20px 10px;
     font-size: 24px;
@@ -279,6 +276,7 @@ object.pdf {
     width: 850px;
 }
 
+
 div.pdf-title {
     position: relative;
     left: -50%;
@@ -292,23 +290,7 @@ div.pdf-title {
 
 
 
-
-.closeable {
-  overflow: hidden;
-  transition: height 1s ease;
-  color: #ffffff;
-  font: normal normal normal 24px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
-}
-.closeable.close {
-  height: 30px;
-  color: #ffffff;
-}
-
-
-
-
 /*
-
 div.pres-block {
     position: absolute;
     left: 50%;
@@ -331,5 +313,16 @@ margin-left: -40px;
 margin-top:20px;
 }
 
+
+.closeable {
+  overflow: hidden;
+  transition: height 1s ease;
+  color: #ffffff;
+  font: normal normal normal 24px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+}
+.closeable.close {
+  height: 30px;
+  color: #ffffff;
+}
 
     
