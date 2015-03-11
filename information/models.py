@@ -107,7 +107,7 @@ class Theory(LecturePart):
 		return self.title
 
 class Presentation(LecturePart):	
-	document = models.FileField(upload_to='data/presentation/', verbose_name='Файл')
+	document = models.FileField(upload_to='data/presentationn/', verbose_name='Файл')
 
 	class Meta:
 		verbose_name = 'Презентація'
