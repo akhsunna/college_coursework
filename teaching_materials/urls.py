@@ -7,6 +7,8 @@ urlpatterns = patterns('',
 	url('^', include('information.urls')),
     url(r'grappelli', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include("teacher.urls")),
+    url(r'^', include('information.urls'))
 )
 
 if settings.DEBUG:

@@ -1,4 +1,7 @@
 ﻿from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 class CourseNumber(models.Model):
 	FIRST_COURSE = 1
@@ -15,6 +18,9 @@ class CourseNumber(models.Model):
 	def __str__(self):
 		return self.get_number_display()	
 
+	class Meta:
+		verbose_name = 'Курс'
+		verbose_name_plural = 'Курси'
 
 class Speciality(models.Model):
 	name = models.CharField(max_length=255, verbose_name='Скорочена назва')
@@ -32,6 +38,7 @@ class Subject(models.Model):
 	year = models.ForeignKey(CourseNumber, verbose_name="Курс")
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)
+	author = models.ForeignKey(User, null=True, blank=True)
 
 	class Meta:
 		verbose_name = 'Предмет'
@@ -41,13 +48,13 @@ class Subject(models.Model):
 		return self.name
 
 class PracticalWork(models.Model):
-	PR = 1
-	LR = 2
+	PR = 'PR'
+	LR = 'LR'
 	DOC_TYPE_CHOICES=(
 		(PR, 'Практична'),
 		(LR, 'Лабораторна'),
 	)
-	kind = models.IntegerField(choices=DOC_TYPE_CHOICES, verbose_name='Тип')
+	kind = models.CharField(choices=DOC_TYPE_CHOICES, max_length=255, verbose_name='Тип')
 	number = models.IntegerField(verbose_name='Номер')
 	title = models.CharField(max_length=255, verbose_name='Тема')
 	subject = models.ForeignKey(Subject, verbose_name="Предмет")
@@ -64,7 +71,7 @@ class PracticalWork(models.Model):
 
 class PracticalWorkFile(models.Model):
 	practical_work = models.ForeignKey(PracticalWork, verbose_name='')
-	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл')
+	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл', blank=True)
 
 	class Meta:
 		verbose_name = 'Файл до роботи'
@@ -72,6 +79,7 @@ class PracticalWorkFile(models.Model):
 
 	def __str__(self):
 		return str(self.pk)
+
 
 class Lecture(models.Model):
 	number = models.IntegerField(verbose_name='Номер')
@@ -91,7 +99,7 @@ class Lecture(models.Model):
 class LecturePart(models.Model):
 	class Meta:
 		abstract = True	
-	title = models.TextField(verbose_name='Тема')
+	title = models.TextField(verbose_name='Опис')
 	lecture = models.OneToOneField(Lecture, verbose_name="Лекція")	
 
 
@@ -127,5 +135,9 @@ class Video(LecturePart):
 
 class CheckTest(models.Model):
 	title = models.CharField(max_length=255, verbose_name='Тест')
-	doc_name = models.CharField(max_length=255, blank=True, verbose_name='Файл')
+	doc_name = models.FileField(upload_to='data/test/', verbose_name='Файл')
 	subject = models.ForeignKey(Subject, verbose_name='Предмет')
+
+	class Meta:
+		verbose_name = 'Підсумкок'
+		verbose_name_plural = 'Підсумкові'

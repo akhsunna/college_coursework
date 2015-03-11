@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="sub-block">
+    <center>
+        <div class="subj-title">
+            <div class="sub-title" style="font-size:30px">
+			<form action="" method="post" class="form-container" id="form">{% csrf_token %}
+				<div class="form-title">Назва предмету</div>
+					{{ form.name }}
+					{{ form.name.errors }}
+				<div class="form-title">Вибір спеціальності</div>
+					{{ form.specialty }}
+					{{ form.specialty.errors }}
+				<div class="form-title">Вибір курсу</div>
+					{{ form.year }}
+					{{ form.year.errors }}
+				<div class="submit-container">
+	                <input class="btn-success" type="submit" value="Зберегти внесені зміни"/>
+	                <input type="hidden" name="next" value="{{ next|escape }}"/>
+	
+	               </div>
+			</form>
+		</div>
+	</div>
+	</center>
+	</div>
+{% endblock content %}
+{% block sidebarbottom %}
+    <a href="{% url 'teacher_subject_list'%}" class="choice-variant btn btn-outlined btn-theme">Перейти на сторінку адміна</a>
+    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+{% endblock %}

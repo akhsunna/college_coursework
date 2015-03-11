@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="sub-block">
+	<center>
+		<div class="subj-title">
+			<div class="sub-title">
+				{% if messages %}
+					<ul class="messages">
+    					{% for message in messages %}
+    						<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
+    					{% endfor %}
+					</ul>
+				{% endif %}		
+			</div>
+		</div>
+	</center>
+	<div  class="subject-block">	
+	<ul>
+		{% for subject in subjects %}
+			<li class="closeable close"><span class="js-closeable">  Предмет - "{{ subject.name }}" </span>
+				<ul>
+					<li>
+						<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
+						Перегляд змісту предмета</a>
+					</li>
+					<li>
+						<a href="{% url 'edit_subject' subject.id %}" style="text-decoration:none;"> Змінити основні дані предмету </a>
+					</li>
+					<li>
+						<a href="{% url 'add_lecture' subject.id %}" style="text-decoration:none;">  Добавити лекцію </a>
+					</li>
+					<li>
+						<a href="{% url 'create_lab' subject.id %}" style="text-decoration:none;">  Добавити завдання </a>
+					</li>
+					<li>
+						<a href="{% url 'add_test' subject.id %}" style="text-decoration:none;"> Добавити тести </a>
+					</li>
+					<li>
+						<a href="{% url 'delete_subject' subject.id %}" style="text-decoration:none;"> Видалити предмет </a>
+					</li>
+				</ul>
+			</li>
+		{% endfor %}
+	</ul>
+	</div>
+</div>
+{% endblock %}
+
+        {% block sidebarbottom %}
+                    <a href="{% url 'create_subject'%}" class="choice-variant btn btn-outlined btn-theme">Створити предмет </a>
+                    <a href="{% url 'teacher_logout' %}" class="choice-variant btn btn-outlined btn-theme">Вийти користувач - {{user.username}}</a>
+        {% endblock %}
