@@ -5,19 +5,20 @@
 		<div class="subj-title">
 			<div class="sub-title">
 				{% if messages %}
-					<ul class="messages">
-    					{% for message in messages %}
-    						<li{% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
-    					{% endfor %}
-					</ul>
-				{% endif %}		
+                    {% for message in messages %}
+                      <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+                    {% endfor %}
+                {% endif %}
 			</div>
 		</div>
 	</center>
+
+		{% load staticfiles %}
+		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">
 	<div  class="subject-block">	
 	<ul>
 		{% for subject in subjects %}
-			<li class="closeable2 close2"><span class="js-closeable">  Предмет - "{{ subject.name }}" </span>
+			<li class="closeable close"><span class="js-closeable">  Предмет - "{{ subject.name }}" </span>
 				<ul>
 					<li>
 						<a href="{% url 'teacher_labs_list' subject.id %}" style="text-decoration:none;" data-wow-delay="0.7s">
@@ -30,7 +31,7 @@
 						<a href="{% url 'add_lecture' subject.id %}" style="text-decoration:none;">  Добавити лекцію </a>
 					</li>
 					<li>
-						<a href="{% url 'create_lab' subject.id %}" style="text-decoration:none;">  Добавити завдання </a>
+						<a href="{% url 'create_lab' subject.id %}" style="text-decoration:none;">  Добавити практичну або лабораторну роботу </a>
 					</li>
 					<li>
 						<a href="{% url 'add_test' subject.id %}" style="text-decoration:none;"> Добавити тести </a>

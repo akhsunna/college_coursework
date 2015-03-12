@@ -107,11 +107,15 @@ def teacher_subject_list(request):
 
 @login_required
 def teacher_labs_list(request, subject_id):
-	labs = PracticalWork.objects.filter(subject=subject_id)
-	lectures = Lecture.objects.filter(subject=subject_id)
+	subject = Subject.objects.get(id=subject_id)
+	prs = PracticalWork.objects.filter(subject=subject_id,kind='PR')
+	lrs = PracticalWork.objects.filter(subject=subject_id,kind='LR')
 	tests = CheckTest.objects.filter(subject=subject_id)
+	lectures = Lecture.objects.filter(subject=subject_id)
 	return render(request, 'information.html', {
-		'labs': labs,
+		'subject': subject,
+		'prs': prs,
+		'lrs': lrs,
 		'lectures': lectures,
 		'tests':tests,
 		})
@@ -253,7 +257,7 @@ def add_video(request, lecture_id):
 				'document': video.document, 
 			},instance=video)
 		messages.add_message(request, messages.INFO, 'Відео успішно змінене')
-		return render(request, 'edit_video.html', {'form': form})
+		return render(request, 'edit_video.html', {'form': form, 'video': video})
 	else:
 		if request.method == 'POST':
 			form = VideoForm(request.POST, request.FILES)
@@ -330,8 +334,10 @@ def create_lab(request, subject_id):
 					)
 				new_practic.save()
 			for form in file_formset:
+				name = form.cleaned_data.get('name')
 				document = form.cleaned_data.get('document')
 				new_file = PracticalWorkFile(
+						name=name,
 						document=document,
 						practical_work_id=new_practic.id
 					)
@@ -372,8 +378,8 @@ def edit_subject(request, subject_id):
 def edit_labs(request, practic_id):
 	practic = PracticalWork.objects.get(id=practic_id)
 	practic_file = PracticalWorkFile.objects.get(practical_work_id=practic.id)
-	practic_set = formset_factory(PracticForm)
-	practic_file_set = formset_factory(PracticFileForm)
+	practic_set = formset_factory(PracticForm, extra=0)
+	practic_file_set = formset_factory(PracticFileForm, extra=0)
 	if request.method == 'POST':
 		practic_formset = practic_set(request.POST, request.FILES, prefix='practic')
 		practic_file_formset = practic_file_set(request.POST, request.FILES, prefix='practic_file') 
@@ -387,133 +393,27 @@ def edit_labs(request, practic_id):
 				practic.title = title
 				practic.save()
 			for form in practic_file_formset:
+				name = form.cleaned_data.get('name')
 				document = form.cleaned_data.get('document')
+				practic_file.name = name
 				practic_file.document = document
 				practic_file.save()
 			messages.add_message(request, messages.INFO, 'Завдання успішно змінене')
 			return HttpResponseRedirect(reverse('teacher_subject_list'))
 	else:
-		practic_set = formset_factory(PracticForm, extra=0)
-		practic_file_set = formset_factory(PracticFileForm, extra=0)
+		practic_set = formset_factory(PracticForm,extra=0)
+		practic_file_set = formset_factory(PracticFileForm,extra=0)
 		practic_formset = practic_set(initial=[{
 				'kind': practic.kind,
 				'number': practic.number,
 				'title': practic.title,
 			}], prefix='practic')			
 		practic_file_formset = practic_file_set(initial=[({
-			'document': practic_file.document
+			'name': practic_file.name,
+			'document': practic_file.document,
 			})], prefix='practic_file')
 	return render(request, 'edit_labs.html', {
 			'practic_formset': practic_formset,
 			'practic_file_formset': practic_file_formset,
 		})
 
-
-@login_required
-def edit_lecture(request, lecture_id):
-	lecture = Lecture.objects.get(id=lecture_id)
-	theory = Theory.objects.get(lecture_id=lecture.id)
-	lecture_set = formset_factory(LectureForm)
-	theory_set = formset_factory(TheoryForm)
-	if request.method == 'POST':
-		lecture_formset = lecture_set(request.POST, request.FILES, prefix='lecture')
-		theory_formset = theory_set(request.POST, request.FILES, prefix='theory')
-		if (lecture_formset.is_valid() and theory_formset.is_valid()):
-			for form in lecture_formset:
-				number = form.cleaned_data.get('number')
-				name = form.cleaned_data.get('name')
-				lecture.number = number
-				lecture.name = name
-				lecture.save()
-			for form in theory_formset:
-				title = form.cleaned_data.get('title')
-				document = form.cleaned_data.get('document')
-				theory.title = title
-				theory.document = document
-				theory.save()
-			messages.add_message(request, messages.INFO, 'Лекція успішно змінена')
-			return HttpResponseRedirect(reverse('teacher_subject_list'))
-	else:
-		lecture_set = formset_factory(LectureForm, extra=0)
-		theory_set = formset_factory(TheoryForm, extra=0)
-		lecture_formset = lecture_set(initial=[({
-				'name': lecture.name,
-				'number': lecture.number,
-			})])
-		theory_formset = theory_set(initial=[({
-				'title': theory.title,
-				'document': theory.document,
-			})])
-	return render(request, 'edit_lecture.html', {
-			'lecture_formset': lecture_formset,
-			'theory_formset': theory_formset,
-		})
-
-# @login_required
-# def create_theory(request, subject_id):
-# 	subject = Subject.objects.get(id=subject_id)
-# 	if subject.author != request.user:
-# 		raise PermissionDenied()
-# 	lecture_set = formset_factory(LectureForm)
-# 	theory_set = formset_factory(TheoryForm)
-# 	presentation_set = formset_factory(PresentationForm)
-# 	video_set = formset_factory(VideoForm) 
-# 	if request.method == 'POST':
-# 		theory_formset = theory_set(request.POST, request.FILES, prefix='theory')
-# 		lecture_formset = lecture_set(request.POST, request.FILES, prefix='lecture')
-# 		presentation_formset = presentation_set(request.POST, request.FILES, prefix='presentation')
-# 		video_formset = video_set(request.POST, request.FILES, prefix='video') 
-# 		if (lecture_formset.is_valid() and theory_formset.is_valid()
-# 			and video_formset.is_valid() and presentation_formset.is_valid()
-# 			):
-# 			for form in lecture_formset:
-# 				number = form.cleaned_data.get('number')
-# 				name = form.cleaned_data.get('name')
-# 				new_lecture = Lecture(
-# 						number=number,
-# 						name=name,
-# 						subject_id=subject.id
-# 					)
-# 				new_lecture.save()
-# 			for form in theory_formset:
-# 				title = form.cleaned_data.get('title')
-# 				document = form.cleaned_data.get('document')
-# 				new_theory = Theory(
-# 						title=title,
-# 						document=document,
-# 						lecture_id=new_lecture.id
-# 					)
-# 				new_theory.save()
-# 			for form in video_formset:
-# 				title = form.cleaned_data.get('title')
-# 				document = form.cleaned_data.get('document')
-# 				new_video = Video(
-# 						title=title,
-# 						document=document,
-# 						lecture_id=new_lecture.id
-# 					)
-# 				if new_video.title!=None:
-# 					new_video.save()
-# 				for form in presentation_formset:
-# 					title = form.cleaned_data.get('title')
-# 					document = form.cleaned_data.get('document')
-# 					new_presentation = Presentation(
-# 							title=title,
-# 							document=document,
-# 							lecture_id=new_lecture.id
-# 						)
-# 					if new_presentation.title!=None:
-# 						new_presentation.save()
-# 			messages.add_message(request, messages.INFO, 'Теоретичний матеріал успішно доданий')
-# 			return HttpResponseRedirect(reverse('teacher_subject_list'))
-# 	else:
-# 		lecture_formset = lecture_set(prefix='lecture')
-# 		theory_formset = theory_set(prefix='theory')
-# 		presentation_formset = presentation_set(prefix='presentation')
-# 		video_formset = video_set(prefix='video')
-# 	return render(request, 'create_theory.html', {
-# 			'lecture_formset': lecture_formset,
-# 			'theory_formset': theory_formset,
-# 			'presentation_formset': presentation_formset,
-# 			'video_formset': video_formset,
-# 		})

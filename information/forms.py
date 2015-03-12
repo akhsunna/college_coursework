@@ -17,7 +17,7 @@ class PracticForm(ModelForm):
 class PracticFileForm(ModelForm):
 	class Meta:
 		model = PracticalWorkFile
-		fields = ['document']
+		fields = ['name','document']
 
 class LectureForm(ModelForm):
 	class Meta:

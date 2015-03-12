@@ -3,35 +3,67 @@
 <div class="sub-block">
     <center>
         <div class="subj-title">
-            <div class="sub-title" style="font-size:30px">
-            	{% for lab in labs %}
-            	<li class="closeable close"><span class="js-closeable">Завдання {{ lab.title }} </span>  
-                    <ul>
-                        <li><a href="{% url 'edit_labs' lab.id %}">  Змінити дані </a></li>
-                        <li><a href="{% url 'delete_lab' lab.id %}"> Видалити </a> </li>
-                    </ul>
-                </li>
-				{% endfor %}
-                {% for lecture in lectures %}
-                <li class="closeable close"><span class="js-closeable">Лекція {{ lecture.name }} </span>  
-                    <ul>
-                        <li><a href="{% url 'add_theory' lecture.id %}">Теорія </a></li>
-                        <li><a href="{% url 'add_presentation' lecture.id %}"> Презентація  </a></li>
-                        <li><a href="{% url 'add_video' lecture.id %}"> Відео  </a></li>
-                        <li><a href="{% url 'delete_lecture' lecture.id %}"> Видалити </a> </li>
-                    </ul>
-                </li>
-                {% endfor %}
-                {% for test in tests %}
-                <li class="closeable close"><span class="js-closeable">Тест -  {{ test.title }} </span>  
-                    <ul>
-                        <li><a href="{% url 'edit_test' test.id %}">Змінити </a></li>
-                        <li><a href="{% url 'delete_test' test.id %}"> Видалити </a> </li>
-                    </ul>
-                </li>
-                {% endfor %}
+            <div class="sub-title">
+                
             </div>
         </div>
     </center>
+        {% load staticfiles %}
+        <div style="background-image: url({% static "images/dark.png" %})" class="subject-block">   
+            <ul>
+            {% if lectures %}
+                <li>Лекції    <!-- closeable close -->
+                    <ul>
+                        {% for lecture in lectures %}
+                            <li class="closeable close"> <span class="js-closeable">Лекція номер {{ lecture.number }}: {{ lecture.name }} </span>
+                                <ul>
+                                    <li><a href="{% url 'add_theory' lecture.id %}" style="text-decoration:none;">Теорія</a></li>
+                                    <li><a href="{% url 'add_presentation' lecture.id %}" style="text-decoration:none;">Презентація</a></li>
+                                    <li><a href="{% url 'add_video' lecture.id %}" style="text-decoration:none;">Відео</a></li>
+                                    <li><a href="{% url 'delete_lecture' lecture.id %}" style="text-decoration:none;"> Видалити лекцію </a> </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>   
+            {% endif %}  
+            {% if prs %}
+                <li class="closeable close"><span class="js-closeable">Практичні</span>
+                    <ul>
+                        {% for pr in prs %}
+                            <li>
+                                <a href="{% url 'edit_labs' pr.id %}" style="text-decoration:none;">Практична робота {{ pr.number }}: {{ pr.title }} </a> <br> 
+                                <a href="{% url 'delete_lab' pr.id %}"> Видалити  практичну роботу {{ pr.number }}: {{ pr.title }}</a> 
+                            </li>
+                        {% endfor %}                    
+                    </ul>
+                </li>   
+            {% endif %}       
+            {% if lrs %}
+                <li class="closeable close"> <span class="js-closeable">Лабораторні</span>
+                    <ul>
+                        {% for lr in lrs %}
+                            <li>
+                                <a href="{% url 'edit_labs' lr.id %}" style="text-decoration:none;">Лабораторна робота {{ pr.number }}: {{ pr.title }} </a><br>
+                                <a href="{% url 'delete_lab' lr.id %}"> Видалити  лабораторну роботу {{ pr.number }}: {{ pr.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>   
+            {% endif %}
+            {% if tests %}
+                <li class="closeable close"><span class="js-closeable">Підсумкові</span>
+                    <ul>
+                        {% for test in tests %}
+                            <li>
+                                <a href="{% url 'edit_test' test.id %}" style="text-decoration:none;">{{test.title}}</a><br>
+                                <a href="{% url 'delete_test' test.id %}" style="text-decoration:none;"> Видалити {{test.title}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </div>  
 </div>
 {% endblock %}
