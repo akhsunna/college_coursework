@@ -74,6 +74,7 @@ class PracticalWorkFile(models.Model):
 	document = models.FileField(upload_to='data/practical_works/', verbose_name='Файл')
 	name = models.CharField(max_length=255, verbose_name='Назва')
 
+
 	class Meta:
 		verbose_name = 'Файл до роботи'
 		verbose_name_plural = 'Файли до робіт'

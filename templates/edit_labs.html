@@ -17,6 +17,8 @@
                 	{{ form.title }}
                 {% endfor %}
                 {% for form in practic_file_formset %}
+                <div class="form-title">Назва :</div>
+                                {{ form.name }}
                 	<div class="form-title">Файл </div>
                 		{{ form.document }}
                 {% endfor %}

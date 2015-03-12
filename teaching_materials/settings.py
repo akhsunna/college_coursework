@@ -70,10 +70,10 @@ WSGI_APPLICATION = 'teaching_materials.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'teaching_materials',
         'USER': 'root',
-        'PASSWORD': '1111',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -110,4 +110,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-GRAPPELLI_ADMIN_TITLE = 'Admin'
+GRAPPELLI_ADMIN_TITLE = 'Адміністративна сторінка сайту'
