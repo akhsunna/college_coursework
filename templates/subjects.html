@@ -14,7 +14,7 @@
 			{% for subject in subjects %}
 				<a href="/subjects/{{subject.id}}/" style="text-decoration:none;" data-wow-delay="0.7s" class="choice-variant btn btn-outlined btn-theme">
 					<div style="float:left;">{{ subject.name }}</div>
-					<div style="color:gray;float:right;"> Студницька Л.М</div>		
+					<div style="color:gray;float:right;"> {{ subject.author.first_name }} </div>		
 				</a>
 			{% endfor %}	
 			{% if not subjects %}	

@@ -13,7 +13,7 @@
 			{{ video.title }} | <a href="/subjects/{{subject.id}}/" style="text-decoration:none;">{{ subject }}</a>
 		</div>
 		<div class="" style="float:right;">
-			<a href="" style="text-decoration:none;">Завантажити</a>
+			<a href="{{ video.document.url }}"  style="text-decoration:none;" download	>Завантажити</a>
 		</div>
 	</div>	
 </div>
@@ -21,7 +21,7 @@
 
 
 <div>
-{{ slide }}
+  {{ slide }}
 </div>
 
 

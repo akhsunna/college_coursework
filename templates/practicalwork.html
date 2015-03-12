@@ -21,7 +21,7 @@
 		{% load staticfiles %}
 		<div style="background-image: url({% static "images/dark.png" %})" class="subject-block">		
 			{% for doc in docs %}
-				<a href="" style="text-decoration:none;">
+				<a href="{{ doc.document.url }}" style="text-decoration:none;" download >
 					{{ doc.name }}	
 				</a> <br>
 			{% endfor %}	

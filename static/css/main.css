@@ -10,6 +10,10 @@ a {
     color: #028dff;
 }
 
+li {
+    list-style-type: none;
+}
+
 #sidebar {
     position: fixed;
     left: 0px;
@@ -234,6 +238,10 @@ div.subjects-list {
 div.subject-block {
     padding: 20px 10px 20px 10px;
     font-size: 24px;
+}
+
+.subject li {
+    list-style-type: none;
 }
 
 div.video-block {

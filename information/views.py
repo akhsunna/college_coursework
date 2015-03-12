@@ -30,8 +30,8 @@ def subject_list(request, speciality_id, course_id):
 def subject_show(request, subject_id):
 	subject = Subject.objects.get(id=subject_id)
 	lectures = Lecture.objects.filter(subject=subject_id)
-	prs = PracticalWork.objects.filter(subject=subject_id,kind=1)
-	lrs = PracticalWork.objects.filter(subject=subject_id,kind=2)
+	prs = PracticalWork.objects.filter(subject=subject_id,kind='PR')
+	lrs = PracticalWork.objects.filter(subject=subject_id,kind='LR')
 	tests = CheckTest.objects.filter(subject=subject_id)
 	return render(request,'subject.html',{'subject':subject,'lectures':lectures,'prs':prs,'lrs':lrs,'tests':tests})
 
