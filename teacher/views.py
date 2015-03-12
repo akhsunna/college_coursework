@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
-from information.views import teacher_subject_list
+from information.views import teacher_subject_list, speciality_list
 
 # Create your views here.
 
@@ -19,4 +19,4 @@ def login(request):
 
 def logout(request):
 	auth.logout(request)
-	return redirect('/')
+	return HttpResponseRedirect(reverse('speciality_list'))
