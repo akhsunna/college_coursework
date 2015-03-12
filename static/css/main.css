@@ -45,7 +45,7 @@ li {
     text-align: center;
     white-space: nowrap;
     display: inline-block;
-    margin: 0px auto auto 25px;
+    margin: 0px auto auto 10px;
     cursor: pointer; 
 }
 
@@ -298,12 +298,12 @@ div.pdf-title {
 
 
 
-/*
+
 div.pres-block {
     position: absolute;
     left: 50%;
     bottom: 0px;
-    top: 10%;
+    top: 0%;
     width: 50%;    
     max-width: 1200px;
 }
@@ -312,7 +312,12 @@ div.pres {
     position: relative;
     left: -50%;
     width: 100%;
-}*/
+}
+
+div.pres-bottom {
+    font: normal normal normal 20px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    font-weight: 700;
+}
 
 
 .hide-bullets {
@@ -320,6 +325,10 @@ list-style:none;
 margin-left: -40px;
 margin-top:20px;
 }
+
+
+
+
 
 
 .closeable {
